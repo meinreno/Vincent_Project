@@ -1,0 +1,5 @@
+Versões:
+Jquery  = 3.1.0
+PHP =  7.0.12-1+deb.sury.org~xenial+1 (cli) ( NTS )
+BD = Mysql-5.7.15
+OS = UBUNTU 16.04
