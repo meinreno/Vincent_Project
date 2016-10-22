@@ -21,22 +21,36 @@ class novoUsuario extends MeuSQL
 	private $sobrenome;
 	private $email;
 	private $senha;
+	private $telefone;
+	private $logradouro;
+	private $bairro;
+	private $numero;
+	private $cep;
+	private $municipio;
+	private $estado;
 
-	public function __construct($getNome, $getSobrenome, $getEmail, $getSenha) //função construtora para armazenar informações do novo usuario
+	public function __construct($getNome, $getSobrenome, $getEmail, $getSenha, $getTelefone, $getLogradouro, $getBairro, $getNumero, $getCep, $getMunicipio, $getEstado) //função construtora para armazenar informações do novo usuario
 	{
 		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
 		$this->nome = $getNome;
 		$this->sobrenome = $getSobrenome;
 		$this->email = $getEmail;
 		$this->senha = $getSenha;
+		$this->telefone = $getTelefone;
+		$this->logradouro = $getLogradouro;
+		$this->bairro = $getBairro;
+		$this->numero = $getNumero;
+		$this->cep = $getCep;
+		$this->municipio = $getMunicipio;
+		$this->estado = $getEstado;
 		
 	}
 
 	function verificaExistencia_Usuario($email_Busca){//verificar existencia de usuario pelo email.
 		
-		$this->conectarSQL('teste'); //conexão com o BD
+		$this->conectarSQL('vincent_project'); //conexão com o BD
 		$this->con->query("SET NAMES 'utf8'");
-		$query = "SELECT email FROM teste3 WHERE email='".$email_Busca."'"; //query para verificar a existencia de usuario pelo email
+		$query = "SELECT email FROM usuarios WHERE email='".$email_Busca."'"; //query para verificar a existencia de usuario pelo email
 		$resultado = $this->con->query($query) or die ($this->con->error); //executando Query
 
 		
@@ -58,17 +72,20 @@ class novoUsuario extends MeuSQL
 		$SenhaCriptografada = $CriptografadorSenha->gerarHash($salt); //gerando senha com o salt
 
 
-		$chave_novoUsuario = Array('nome', 'sobrenome', 'email', 'senha', 'salt'); //Armazenar chaves em array para usar no MeuSQL
-		$dados_novoUsuario = Array($this->nome, $this->sobrenome, $this->email, $SenhaCriptografada, $salt); //Armazenar informações em Array para alimentar BD
+		$chave_novoUsuario = Array('nome', 'sobrenome', 'email', 'senha', 'salt', 'telefone', 'logradouro', 'bairro', 'numero', 'cep', 'municipio', 'estado'); //Armazenar chaves em array para usar no MeuSQL
+		$dados_novoUsuario = Array($this->nome, $this->sobrenome, $this->email, $SenhaCriptografada, $salt, $this->telefone, $this->logradouro, $this->bairro, $this->numero, $this->cep, $this->municipio, $this->estado); //Armazenar informações em Array para alimentar BD
 
 		
-		parent::conectarSQL('teste'); //Selecionando Banco de dados e ativar a conexão com o Mysql
+		parent::conectarSQL('vincent_project'); //Selecionando Banco de dados e ativar a conexão com o Mysql
 
-		parent::alimentarTabelaID('teste3', $chave_novoUsuario, $dados_novoUsuario); //Alimentando o BD com as informações do novo usuario.
+		parent::alimentarTabelaID('usuarios', $chave_novoUsuario, $dados_novoUsuario); //Alimentando o BD com as informações do novo usuario.
+
+		echo "Usuario Cadastrado com Sucesso";
 
 	}
 }
 
+//Classe para realizar o login na pagina
 
 class LoginUsuario extends MeuSQL
 {
@@ -85,9 +102,9 @@ class LoginUsuario extends MeuSQL
 
 	function login() //função login do usuario
 	{
-		$this->conectarSQL('teste'); //conectando ao BD
+		$this->conectarSQL('vincent_project'); //conectando ao BD
 		$this->con->query("SET NAMES 'utf8'");
-		$query = "SELECT * FROM teste3 WHERE email='".$this->Email."'"; //selecionando todos os campos necesarios para verificar se usuario e senha estão corretos
+		$query = "SELECT * FROM usuarios WHERE email='".$this->Email."'"; //selecionando todos os campos necesarios para verificar se usuario e senha estão corretos
 
 		$resultado = $this->con->query($query) or die ($this->con->error); //executando a query
 
@@ -98,7 +115,7 @@ class LoginUsuario extends MeuSQL
 		$hash = $geradorHash->gerarHash($coluna['salt']); //gerando a hash com o salt adquirido do Bd do usuario
 
 		if($hash === $coluna['senha']){ //verificando se senha está correta
-			header("Location: http://localhost/cadastrar_novo.php"); //caso a senha estejá correta, o codigo irá direcionar o usuario para a pagina desejada
+			header("Location: http://localhost/home.php"); //caso a senha estejá correta, o codigo irá direcionar o usuario para a pagina desejada
 		}else{
 			echo "Senha ou Usuario incorreto";
 		}
