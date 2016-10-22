@@ -108,7 +108,7 @@ class LoginUsuario extends MeuSQL
 
 		$resultado = $this->con->query($query) or die ($this->con->error); //executando a query
 
-		$coluna = $resultado->fetch_array(MYSQLI_ASSOC); //guardando o resultado em um Array
+		$coluna = $resultado->fetch_array(MYSQLI_ASSOC); //guardando o resultado em um Array e retorna a chave do array em forma de nome (MYSQLI_ASSOC)
 
 		$geradorHash = new CriptografiaSenha($this->Senha); // criando objeto da criptografia de senha
 
