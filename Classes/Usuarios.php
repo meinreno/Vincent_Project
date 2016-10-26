@@ -80,7 +80,28 @@ class novoUsuario extends MeuSQL
 
 		parent::alimentarTabelaID('usuarios', $chave_novoUsuario, $dados_novoUsuario); //Alimentando o BD com as informações do novo usuario.
 
-		echo "Usuario Cadastrado com Sucesso";
+		echo '<div class="col">
+                    <div class="cell panel">
+                        <div class="header">
+                           Aviso
+                        </div>
+                        <div class="body">
+                            <div class="cell">
+                                <div class="col">
+                                    <div class="cell">
+                                        <div class="color-green center" style="width:500px;max-width:100%;">
+                                            <div class="col width-fit mobile-width-fit"><span class="icon icon-64 icon-ok-sign"></span>
+                                            </div>
+                                            <div class="col width-fill mobile-width-fill">
+                                                Usuario Cadastrado com sucesso!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
 
 	}
 }
@@ -117,7 +138,28 @@ class LoginUsuario extends MeuSQL
 		if($hash === $coluna['senha']){ //verificando se senha está correta
 			header("Location: http://localhost/home.php"); //caso a senha estejá correta, o codigo irá direcionar o usuario para a pagina desejada
 		}else{
-			echo "Senha ou Usuario incorreto";
+			echo '<div class="col center width-2of4">
+                    <div class="cell panel">
+                        <div class="header">
+                           Aviso
+                        </div>
+                        <div class="body">
+                            <div class="cell">
+                                <div class="col">
+                                    <div class="cell">
+                                        <div class="color-red center" style="width:200px;max-width:100%;">
+                                            <div class="col width-fit mobile-width-fit"><span class="icon icon-warning-sign"></span>
+                                            </div>
+                                            <div class="col width-fill mobile-width-fill">
+                                                Senha ou usuario Incorreto!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
 		}
 
 		
@@ -128,6 +170,29 @@ class LoginUsuario extends MeuSQL
 	}
 
 
+}
+
+/**
+* Classe para processos referente aos Usuarios
+*/
+class ToolsUsuarios extends MeuSQL
+{
+	
+	function __construct()
+	{
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL	
+	}
+
+
+	//Mostrar todos os usuario dentro da tabela do ../Exibir/Usuarios.php
+	function MostrarTodosUsuarios(){
+		$this->conectarSQL('vincent_project'); //conectando ao BD
+		$this->con->query("SET NAMES 'utf8'");
+		$query = "SELECT * FROM usuarios ORDER BY nome"; //selecionando todos os campos necesarios para verificar se usuario e senha estão corretos
+
+		$resultado = $this->con->query($query) or die ($this->con->error); //executando a query
+		return $resultado;
+	}
 }
 
 	

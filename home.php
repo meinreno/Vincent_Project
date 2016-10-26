@@ -1,54 +1,67 @@
-<?php
-	include "Classes/Projetos.php";
-	if (isset($_POST['descricaoLog'])) {
-		$incluirLog = new CadastrarLog($_POST['idprojeto'], $_POST['descricaoLog'], $_POST['usuarioLog']);
-		$incluirLog->CadastrarLog();
-
-	}
-	$apresentarProjetos = new ApresentarProjeto();
-?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Royalle Consultoria Ltda</title>
+	<meta charset="utf-8">
 	<script type="text/javascript" src="Scripts/jquery.js"></script>
-	<script type="text/javascript" src="Scripts/Projetos.js"></script>
+    <script type="text/javascript" src="Scripts/Vincent_Project.js"></script>
+    <link rel="stylesheet" type="text/css" media="all"  href="Cascade/assets/css/cascade/production/build-full.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all"  href="Cascade/assets/css/site.css" />
+    <!--[if lt IE 8]><link rel="stylesheet" href="assets/css/cascade/production/icons-ie7.min.css"><![endif]-->
+    <!--[if lt IE 9]><script src="assets/js/shim/iehtmlshiv.js"></script><![endif]-->
+
+    <!--Logotipo da empresa-->
+    <link rel="shortcut icon" href="Cascade/assets/img/favicon.ico" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<h2>Pagina Principal dos Projetos</h2>
-<a href="cadastrar_novo.php">Cadastrar Novo Usuario</a><br>
-<a href="novo_projeto.php">Cadastrar Novo Projeto</a>
+	<div class="site-header-fixture">
+            <div class="site-header-ghost">
+                <div class="col width-fit mobile-width-fit">
+                    <div class="cell">
+                        <a href="../home.php" class="logo"></a>
+                    </div>
+                </div>
+                <div class="col width-fill mobile-width-fill">
+                    <div class="cell">
+                        <ul class="col nav">
+                            <li class="active"><a href="#">Novo Usuario</a></li>
+                            <li class="active"><a href="#">Novo Projeto</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+		<div class="site-header">
+            <div class="col width-fit mobile-width-fit">
+                <div class="cell">
+                    <a href="../home.php" class="logo"></a>
+                </div>
+            </div>
+            <div class="col width-fill mobile-width-fill">
+                <div class="cell">
+                    <ul class="col nav">
+                        <li class="active" id="projeto_btn1"></li>
+                        <li class="active" id="projeto_btn2"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<table border="2">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Nome Projeto</th>
-			<th>Nome Fantasia</th>
-		</tr>
-	</thead>
-	<TBODY>
-		<?php $apresentarProjetos->MostrarProjetos(); ?>
-	</TBODY>
-</table>
-<br>
-<h3>Inserir um novo Log no Projeto</h3>
-<form name="novoLog" method="POST" action="#">
-	ID do Projeto <input type="text" name="idprojeto"><br>
-	Descrição do Log: <input type="text" name="descricaoLog"><br>
-	Usuario: <input type="text" name="usuarioLog"><br>
-	<input type="submit" name="Enviar Log">
-</form>
-<br>
-<div id='exibirProjeto'></div>
+    <div class="site-body centered-content">
+        <div class="site-center">
+            <div id='CorpoHome'></div><!--Div onde ficarão as informações vindas por .load-->
+        </div>
+    </div>
 
-
-
-</body>
-
-<script type="text/javascript">
 	
+<script src="Cascade/assets/js/app.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#projeto_btn1").html('<a id="Usuario">Usuarios</a>'); //botão no header
+        $("#projeto_btn2").html(''); //botão no header
+        $("#CorpoHome").load("./Exibir/Projetos.php")
+    }); //.ready
 </script>
-
+</body>
 </html>

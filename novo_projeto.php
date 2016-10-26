@@ -5,7 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body>
-<a href="home.php">Projetos</a>
+<a href="new_home.php">Projetos</a>
 	<h3>Preencha as informações para novo Projeto</h3>
 
 	<form name="novo_projeto" method="POST" action="#">

@@ -109,12 +109,10 @@ class ApresentarProjeto extends MeuSQL
 	function MostrarProjetos(){
 		$this->conectarSQL('vincent_project'); //conexão BD
 		$this->con->query("SET NAMES 'utf8'");
-		$query = "SELECT id, nome_projeto, razao_social FROM projetos";
+		$query = "SELECT id, nome_projeto, razao_social, cnpj, cliente_responsavel, tel_responsavel FROM projetos ORDER BY razao_social";
 		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
 
-		while ($resultadoArray = $resultado->fetch_array(MYSQLI_ASSOC)) { //retornado dentro da tabelas os nomes dos projetos
-			printf ("<tr><td id='idProjeto'>%s</td><td>%s</td><td>%s</td><td>Info</td><td class='selProjeto'>Selecionar</td></tr>", $resultadoArray['id'], $resultadoArray['nome_projeto'], $resultadoArray['razao_social']);
-		}
+		return $resultado;
 	}
 }
 
