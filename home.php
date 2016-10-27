@@ -7,6 +7,7 @@
     <script type="text/javascript" src="Scripts/Vincent_Project.js"></script>
     <link rel="stylesheet" type="text/css" media="all"  href="Cascade/assets/css/cascade/production/build-full.min.css"/>
     <link rel="stylesheet" type="text/css" media="all"  href="Cascade/assets/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="Css/Vincent_Project.css">
     <!--[if lt IE 8]><link rel="stylesheet" href="assets/css/cascade/production/icons-ie7.min.css"><![endif]-->
     <!--[if lt IE 9]><script src="assets/js/shim/iehtmlshiv.js"></script><![endif]-->
 

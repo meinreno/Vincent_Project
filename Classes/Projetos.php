@@ -105,7 +105,7 @@ class ApresentarProjeto extends MeuSQL
 		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
 
 	}
-
+	//Função para apresenar projetos na tela inicial
 	function MostrarProjetos(){
 		$this->conectarSQL('vincent_project'); //conexão BD
 		$this->con->query("SET NAMES 'utf8'");
@@ -114,6 +114,18 @@ class ApresentarProjeto extends MeuSQL
 
 		return $resultado;
 	}
+
+	//Função para apresentar todos os dados do projeto para infoProjeto
+
+	function MostrarInfoProjeto($idProjeto){
+		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->con->query("SET NAMES 'utf8'");
+		$query = "SELECT * FROM projetos WHERE id='".$idProjeto."'";
+		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
+
+		return $resultado;
+	} 
+
 }
 
 /**
