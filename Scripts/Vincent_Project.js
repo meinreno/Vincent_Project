@@ -1,7 +1,9 @@
-$(document).on('click', '#Projetos', Projetos);
-$(document).on('click', '#Usuario', Usuario);
-$(document).on('click', '#NovoUsuario', NovoUsuario);
-$(document).on('click', '#infoProjeto', infoProjeto);
+$(document).on('click', '#Projetos', Projetos); //.load projeto no corpo do home
+$(document).on('click', '#Usuario', Usuario); //.load usuarios no corpo do Home
+$(document).on('click', '#NovoUsuario', NovoUsuario); //.load novoUsuario no corpo do Home
+$(document).on('click', '#infoProjeto', infoProjeto); //mostrar todos as informações do projeto no Modal
+$(document).on('click', '#NovoProjeto', NovoProjeto); //abrir cadastro de novo projeto
+$(document).on('click', '#SalvarNovoProjeto', SalvarNovoProjeto); //.btn salvar projeto novo
 
 
 
@@ -80,8 +82,39 @@ function infoProjeto(){
 			
 		});
 
-	//modal('modalInfoProjeto', 'abrir');
+	
 }
+
+function NovoProjeto(){
+	modal('modalNovoProjeto', 'abrir');
+}
+
+function SalvarNovoProjeto(){ //.btn salvar projeto novo
+	var informacoes = $('#novoProjeto').serializeArray(); //informações do novo projeto
+	informacoes.unshift('salvarNovoProjeto');
+
+	$.ajax({
+		url: '../Controle/Projetos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(retorno){
+			alert(retorno);
+			
+		}//success
+	})
+	
+
+	
+}; 
+
+
+
+
+
+
+
+
 
 
 //Modal/////////////////////

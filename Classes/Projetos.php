@@ -89,7 +89,7 @@ class NovoProjeto extends MeuSQL
 
 		$resultado = $this->con->query($query) or die ($this->con->error); //executando Query
 
-		printf ("Projeto Cadastrado com Sucesso de ID %s", $ultimoId);
+		return ($ultimoId);
 	}
 }
 
