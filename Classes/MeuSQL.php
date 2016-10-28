@@ -51,5 +51,12 @@ class MeuSQL
 		$this->con->query($query) or die ($this->con->error)  ; //executando a Query par cadastrar produtos na tabela
 	}
 
+	public function excluirLinha($nomeTabela, $chave, $identificacao){
+		$query = "DELETE FROM $nomeTabela WHERE $chave = '".$identificacao."'";
+
+		$this->con->query("SET NAMES 'utf8'");
+		$this->con->query($query) or die ($this->con->error)  ; //executando a Query par cadastrar produtos na tabela
+	}
+
 
 }

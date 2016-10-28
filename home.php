@@ -59,9 +59,8 @@
 <script src="Cascade/assets/js/app.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#projeto_btn1").html('<a id="Usuario">Usuarios</a>'); //botão no header
-        $("#projeto_btn2").html(''); //botão no header
-        $("#CorpoHome").load("./Exibir/Projetos.php")
+        Projetos();
+        //$("#CorpoHome").load("./Exibir/Projetos.php")
     }); //.ready
 </script>
 </body>

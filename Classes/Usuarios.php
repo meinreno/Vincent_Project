@@ -80,28 +80,7 @@ class novoUsuario extends MeuSQL
 
 		parent::alimentarTabelaID('usuarios', $chave_novoUsuario, $dados_novoUsuario); //Alimentando o BD com as informações do novo usuario.
 
-		echo '<div class="col">
-                    <div class="cell panel">
-                        <div class="header">
-                           Aviso
-                        </div>
-                        <div class="body">
-                            <div class="cell">
-                                <div class="col">
-                                    <div class="cell">
-                                        <div class="color-green center" style="width:500px;max-width:100%;">
-                                            <div class="col width-fit mobile-width-fit"><span class="icon icon-64 icon-ok-sign"></span>
-                                            </div>
-                                            <div class="col width-fill mobile-width-fill">
-                                                Usuario Cadastrado com sucesso!
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>';
+		return 0;
 
 	}
 }
@@ -173,6 +152,37 @@ class LoginUsuario extends MeuSQL
 }
 
 /**
+* Apresentar informações Usuarios
+*/
+class ApresentarUsuario extends MeuSQL
+{
+	
+	function __construct()
+	{
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL	
+	}
+
+	function MostrarTodosUsuarios(){
+		$this->conectarSQL('vincent_project'); //conectando ao BD
+		$this->con->query("SET NAMES 'utf8'");
+		$query = "SELECT * FROM usuarios ORDER BY nome"; //selecionando todos os campos necesarios para verificar se usuario e senha estão corretos
+
+		$resultado = $this->con->query($query) or die ($this->con->error); //executando a query
+		return $resultado;
+	}
+
+	function MostrarInfoUsuario($idUsuario){
+		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->con->query("SET NAMES 'utf8'");
+		$query = "SELECT id, nome, sobrenome, email, telefone, logradouro, bairro, numero, cep, municipio, estado FROM usuarios WHERE id='".$idUsuario."'";
+		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
+
+		return $resultado;
+	}
+
+}
+
+/**
 * Classe para processos referente aos Usuarios
 */
 class ToolsUsuarios extends MeuSQL
@@ -184,15 +194,13 @@ class ToolsUsuarios extends MeuSQL
 	}
 
 
-	//Mostrar todos os usuario dentro da tabela do ../Exibir/Usuarios.php
-	function MostrarTodosUsuarios(){
-		$this->conectarSQL('vincent_project'); //conectando ao BD
-		$this->con->query("SET NAMES 'utf8'");
-		$query = "SELECT * FROM usuarios ORDER BY nome"; //selecionando todos os campos necesarios para verificar se usuario e senha estão corretos
+	//Excluir Usuario
 
-		$resultado = $this->con->query($query) or die ($this->con->error); //executando a query
-		return $resultado;
+	function ExcluirUsuario($idUsuario){
+		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->excluirLinha('usuarios', 'id', $idUsuario);
 	}
+	
 }
 
 	
