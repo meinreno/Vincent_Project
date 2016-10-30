@@ -85,7 +85,7 @@ class NovoProjeto extends MeuSQL
 		$this->conectarSQL('vincent_project'); //conexão com o BD
 		$this->con->query("SET NAMES 'utf8'");
 		
-		$query = "CREATE TABLE projeto_$ultimoId (id SMALLINT AUTO_INCREMENT, descricao text, usuario varchar(100), data DATETIME, PRIMARY KEY(id)) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci"; //CRIAR TABELA PARA ARMAZENAR LOG DE PROJETO
+		$query = "CREATE TABLE projeto_$ultimoId (id SMALLINT AUTO_INCREMENT, titulo text, log text, usuario varchar(100), data DATETIME, PRIMARY KEY(id)) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci"; //CRIAR TABELA PARA ARMAZENAR LOG DE PROJETO
 
 		$resultado = $this->con->query($query) or die ($this->con->error); //executando Query
 
@@ -155,25 +155,39 @@ class MostrarLog extends MeuSQL
 /**
 * Cadastrar Novo Log do projeto
 */
-class CadastrarLog extends MeuSQL
+class LogTools extends MeuSQL
 {
-	private $id;
-	private $descricao;
-	private $usuario;
-	function __construct($getID, $getDescricaoLog, $getUsuario)
+	
+	function __construct()
 	{
 		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
-		$this->id = $getID;
-		$this->descricao = $getDescricaoLog;
-		$this->usuario = $getUsuario;
 	}
 
-	function CadastrarLog(){
+	function CadastrarLog($id, $titulo, $descricaoLog){
 		$this->conectarSQL('vincent_project'); //conexão BD
 		$this->con->query("SET NAMES 'utf8'");
 		$date = new DateTime();
 		$dataAtual = $date->format('Y-m-d H:i:s');
-		$query = "INSERT INTO projeto_$this->id (descricao, usuario, data) VALUES ('".$this->descricao."', '".$this->usuario."', '".$dataAtual."')";
+		$query = "INSERT INTO projeto_$id (titulo, log, usuario, data) VALUES ('".$titulo."', '".$descricaoLog."', '".$_COOKIE['emailUsuario']."', '".$dataAtual."')";
 		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
+		return 0;
+	}
+
+	function ExibirLogs($idProjeto){
+		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->con->query("SET NAMES 'utf8'");
+		$query = "SELECT * FROM projeto_$idProjeto ORDER BY  data DESC";
+		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
+		return $resultado;
+	}
+
+
+	function NovaDataHora($velhaDataHora){
+		$dataLog = substr($velhaDataHora, 0, 10);
+		$horaLog = substr($velhaDataHora, 11, 18);
+		$dataLog = explode('-', $dataLog, 3);
+		//$horaLog = explode(':', $horaLog, 3);
+		$novaDataHora = $dataLog[2]."/".$dataLog[1]."/".$dataLog[0]." ".$horaLog;
+		return($novaDataHora);
 	}
 }

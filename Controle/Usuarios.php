@@ -26,3 +26,13 @@
 
 		echo json_encode("Usuario Excluido com Sucesso");
 	}
+
+	if ($informacoes[0] == 'usuarioSair') {
+		$sair = new ToolsUsuarios;
+
+		$sair->Logoff();
+
+		echo json_encode("Logoff Realizado");
+
+
+	}

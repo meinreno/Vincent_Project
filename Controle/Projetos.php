@@ -18,5 +18,13 @@
 		$novoProjeto->cadastrar_novoProjeto(); //Criando novo Proejto
 		echo json_encode("Projeto cadastrado com sucesso ");
 	}
+
+	if ($informacoes[0] == 'salvarLog') {
+		$LogTools = new LogTools(); //Classe de Ferramentas para Log dentro da classe Projetos
+		$LogTools->CadastrarLog($informacoes[1], $informacoes[2][0]['value'], $informacoes[2][1]['value']); //enviando informaçoes para cadastro de log
+		
+			echo json_encode('Log Cadastrado com sucesso');
+		
+	}
 	
 	

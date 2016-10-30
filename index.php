@@ -1,3 +1,8 @@
+<?php
+	if (isset($_COOKIE['emailUsuario'])) {
+		header("Location: http://localhost/home.php"); //caso o usuario não tenha feito logoff
+	}
+ ?>
 <!DOCTYPE html>
 <html>
 <head>

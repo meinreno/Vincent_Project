@@ -2,12 +2,18 @@ $(document).on('click', '#Projetos', Projetos); //.load projeto no corpo do home
 $(document).on('click', '#infoProjeto', infoProjeto); //mostrar todos as informações do projeto no Modal
 $(document).on('click', '#NovoProjeto', NovoProjeto); //abrir cadastro de novo projeto
 $(document).on('click', '#SalvarNovoProjeto', SalvarNovoProjeto); //.btn salvar projeto novo
+$(document).on('click', '#SelecionarProjeto', SelecionarProjeto); //Excluir Usuario
 $(document).on('click', '#Usuario', Usuario); //.load usuarios no corpo do Home
 $(document).on('click', '#NovoUsuario', NovoUsuario); //.load novoUsuario no corpo do Home
 $(document).on('click', '#InfoUsuario', InfoUsuario); //mostrar todos as informações do projeto no Modal
 $(document).on('click', '#SalvarNovoUsuario', SalvarNovoUsuario); //.btn salvar Usuario novo
 $(document).on('click', '#ExcluirUsuario', ExcluirUsuario); //Excluir Usuario
 $(document).on('click', '#ResetSenhaUsuario', ResetSenhaUsuario); //Excluir Usuario
+$(document).on('click', '#ResetSenhaUsuario', ResetSenhaUsuario); //Excluir Usuario
+$(document).on('click', '#NovoLog', NovoLog); //Excluir Usuario
+$(document).on('click', '#salvarLog', salvarLog); //Excluir Usuario
+$(document).on('click', '#projetoLogoff', projetoLogoff); //Logoff do Sistema
+
 
 
 
@@ -105,6 +111,13 @@ function SalvarNovoProjeto(){ //.btn salvar projeto novo
 	})
 }; 
 
+function SelecionarProjeto(){
+	var idProjeto = $(this).closest('tr').find('#identificacao').html();
+	$("#CorpoHome").load("./Exibir/LogProjeto.php", {"idProjeto": idProjeto} );
+	$("#projeto_btn1").html('<a id="Projetos">Voltar a Projetos</a>'); //botão no header
+    $("#projeto_btn2").html('<a id="Usuario">Usuarios</a>'); //botão no header
+}
+
 function zerarInfoUsuario(){
 	$("#infoId").html('');
 	$("#infoNome").html('');
@@ -191,7 +204,7 @@ function ExcluirUsuario(){
     }
 }
 
-function ResetSenhaUsuario(){
+function ResetSenhaUsuario(){ // classe para reset de senha de usuario, pendencia de envio de email com senha provisoria
 	var informacoes = Array("resetSenha", $(this).closest('tr').find('#identificacao').html()); 
 	var confirmacao = confirm("Você deseja realmente resetar a Senha do Usuario "+$(this).closest('tr').find('#exibirUsuario').html()+"?");
 	
@@ -200,6 +213,43 @@ function ResetSenhaUsuario(){
 	}
 
 }
+
+function NovoLog(){
+	modal('modalNovoLog', 'abrir');
+
+}
+
+function salvarLog(){
+	var informacoes = Array('salvarLog', $("#idProjetoCurrent").html(), $("#formNovoLog").serializeArray());
+	
+	$.ajax({
+		url: '../Controle/Projetos.php',
+		type: 'POST',
+		dataType: 'json',
+		data: JSON.stringify(informacoes),
+		success: function(msg){
+			alert(msg);
+			$("#CorpoHome").load("./Exibir/LogProjeto.php", {"idProjeto": informacoes[1]} );
+		}
+	})
+}
+
+function projetoLogoff(){
+	var informacoes = Array('usuarioSair');
+	$.ajax({
+		url: '../Controle/Usuarios.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(){
+			 location.reload();
+		}
+
+	})
+	
+}
+
+
 
 
 

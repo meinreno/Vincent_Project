@@ -114,6 +114,8 @@ class LoginUsuario extends MeuSQL
 
 		$hash = $geradorHash->gerarHash($coluna['salt']); //gerando a hash com o salt adquirido do Bd do usuario
 
+		setcookie('emailUsuario', $this->Email, time()+3600, '/', $_SERVER['SERVER_NAME']); //Setando Cookie para guardar email do usuario
+
 		if($hash === $coluna['senha']){ //verificando se senha está correta
 			header("Location: http://localhost/home.php"); //caso a senha estejá correta, o codigo irá direcionar o usuario para a pagina desejada
 		}else{
@@ -199,6 +201,14 @@ class ToolsUsuarios extends MeuSQL
 	function ExcluirUsuario($idUsuario){
 		$this->conectarSQL('vincent_project'); //conexão BD
 		$this->excluirLinha('usuarios', 'id', $idUsuario);
+	}
+
+	function Logoff(){
+		setcookie('emailUsuario', '', time()-99999999, '/', $_SERVER['SERVER_NAME']);
+		
+
+		header("Refresh:0");
+
 	}
 	
 }

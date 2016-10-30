@@ -43,7 +43,7 @@
 													<td>".$exibirProjetos['cnpj']."</td>
 													<td>".$exibirProjetos['cliente_responsavel']."</td>
 													<td>".$exibirProjetos['tel_responsavel']."</td>
-													<td><div class='button'>Selecionar</div></td>
+													<td><div class='button' id='SelecionarProjeto'>Selecionar</div></td>
 													<td><div class='button' id='infoProjeto'>Info</div></td>
 													<td><div class='button'>Excluir</div></td>
 												</tr>");

@@ -1,4 +1,12 @@
+.boxsizingBorder {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
 .negrito{
+	font-weight: bold;
+}
+negrito{
 	font-weight: bold;
 }
 .modal {

@@ -1,3 +1,9 @@
+<?php
+    if (!isset($_COOKIE['emailUsuario'])) {
+        header("Location: http://localhost/"); //caso o usuario não tenha feito logoff
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,11 +44,18 @@
                     <a href="../home.php" class="logo"></a>
                 </div>
             </div>
-            <div class="col width-fill mobile-width-fill">
+            <div class="col width-6of12 mobile-width-fill">
                 <div class="cell">
                     <ul class="col nav">
                         <li class="active" id="projeto_btn1"></li>
                         <li class="active" id="projeto_btn2"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col width-2of12" style="float: right">
+                <div class="cell">
+                    <ul class="col nav">
+                        <li class="active" id="projeto_btnSair"><a id="projetoLogoff">Sair</a></li>
                     </ul>
                 </div>
             </div>
