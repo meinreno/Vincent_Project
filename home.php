@@ -1,6 +1,6 @@
 <?php
     if (!isset($_COOKIE['emailUsuario'])) {
-        header("Location: http://localhost/"); //caso o usuario não tenha feito logoff
+        header("Location: index.php"); //caso o usuario não tenha feito logoff
     }
 ?>
 

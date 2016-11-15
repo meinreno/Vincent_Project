@@ -118,7 +118,7 @@ class LoginUsuario extends MeuSQL
 
 		if($hash === $coluna['senha']){ //verificando se senha está correta
 			setcookie('emailUsuario', $this->Email, time()+3600, '/', $_SERVER['SERVER_NAME']); //Setando Cookie para guardar email do usuario
-			header("Location: http://localhost/home.php"); //caso a senha estejá correta, o codigo irá direcionar o usuario para a pagina desejada
+			header("Location: ../home.php"); //caso a senha estejá correta, o codigo irá direcionar o usuario para a pagina desejada
 		}else{
 			echo '<div class="col center width-2of4">
                     <div class="cell panel">
