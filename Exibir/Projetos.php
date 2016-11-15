@@ -45,7 +45,7 @@
 													<td>".$exibirProjetos['tel_responsavel']."</td>
 													<td><div class='button' id='SelecionarProjeto'>Selecionar</div></td>
 													<td><div class='button' id='infoProjeto'>Info</div></td>
-													<td><div class='button'>Excluir</div></td>
+													<td><div class='button ExcluirProjeto'>Excluir</div></td>
 												</tr>");
 										}
 									 ?>

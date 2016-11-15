@@ -114,9 +114,10 @@ class LoginUsuario extends MeuSQL
 
 		$hash = $geradorHash->gerarHash($coluna['salt']); //gerando a hash com o salt adquirido do Bd do usuario
 
-		setcookie('emailUsuario', $this->Email, time()+3600, '/', $_SERVER['SERVER_NAME']); //Setando Cookie para guardar email do usuario
+		
 
 		if($hash === $coluna['senha']){ //verificando se senha está correta
+			setcookie('emailUsuario', $this->Email, time()+3600, '/', $_SERVER['SERVER_NAME']); //Setando Cookie para guardar email do usuario
 			header("Location: http://localhost/home.php"); //caso a senha estejá correta, o codigo irá direcionar o usuario para a pagina desejada
 		}else{
 			echo '<div class="col center width-2of4">
@@ -200,15 +201,31 @@ class ToolsUsuarios extends MeuSQL
 
 	function ExcluirUsuario($idUsuario){
 		$this->conectarSQL('vincent_project'); //conexão BD
-		$this->excluirLinha('usuarios', 'id', $idUsuario);
+		$this->excluirLinha('usuarios', 'id', $idUsuario); //função da Classe MeuSql para excluir linha de tabela
 	}
 
-	function Logoff(){
+	function Logoff(){ //Logoff de Usuarios
 		setcookie('emailUsuario', '', time()-99999999, '/', $_SERVER['SERVER_NAME']);
 		
 
 		header("Refresh:0");
 
+	}
+
+	function AlteraSenha($idUsuario, $novaSenha){
+		$CriptografadorSenha = new CriptografiaSenha($novaSenha); //Criando objeto para criptografar senha
+
+		$salt = $CriptografadorSenha::geraSaltAleatorio(22); //Gerando o Salto
+
+		
+		$SenhaCriptografada = $CriptografadorSenha->gerarHash($salt); //gerando senha com o salt
+
+		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->con->query("SET NAMES 'utf8'");
+
+		$query = "UPDATE usuarios SET salt = '".$salt."', senha = '".$SenhaCriptografada."' WHERE id=$idUsuario";
+		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
+		echo json_encode("Senha Alterada Com Sucesso");
 	}
 	
 }

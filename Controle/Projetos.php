@@ -26,5 +26,10 @@
 			echo json_encode('Log Cadastrado com sucesso');
 		
 	}
+
+	if ($informacoes[0] == 'excluirProjeto') {
+		$excluirProjeto = new ProjetoTools;
+		$excluirProjeto->ExcluirProjeto($informacoes[1]);
+	}
 	
 	

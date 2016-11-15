@@ -36,3 +36,8 @@
 
 
 	}
+
+	if ($informacoes[0] == 'alteraSenha') {
+		$alterarSenha = new ToolsUsuarios;
+		$alterarSenha->AlteraSenha($informacoes[3], $informacoes[1]);
+	}

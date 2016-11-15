@@ -3,13 +3,14 @@ $(document).on('click', '#infoProjeto', infoProjeto); //mostrar todos as informa
 $(document).on('click', '#NovoProjeto', NovoProjeto); //abrir cadastro de novo projeto
 $(document).on('click', '#SalvarNovoProjeto', SalvarNovoProjeto); //.btn salvar projeto novo
 $(document).on('click', '#SelecionarProjeto', SelecionarProjeto); //Excluir Usuario
+$(document).on('click', '.ExcluirProjeto', ExcluirProjeto); //Excluir Projeto
 $(document).on('click', '#Usuario', Usuario); //.load usuarios no corpo do Home
 $(document).on('click', '#NovoUsuario', NovoUsuario); //.load novoUsuario no corpo do Home
 $(document).on('click', '#InfoUsuario', InfoUsuario); //mostrar todos as informações do projeto no Modal
 $(document).on('click', '#SalvarNovoUsuario', SalvarNovoUsuario); //.btn salvar Usuario novo
 $(document).on('click', '#ExcluirUsuario', ExcluirUsuario); //Excluir Usuario
-$(document).on('click', '#ResetSenhaUsuario', ResetSenhaUsuario); //Excluir Usuario
-$(document).on('click', '#ResetSenhaUsuario', ResetSenhaUsuario); //Excluir Usuario
+$(document).on('click', '.ResetSenhaUsuario', ResetSenhaUsuario); //Excluir Usuario
+$(document).on('click', '#SalvarNovaSenha', SalvarNovaSenha); //Excluir Usuario
 $(document).on('click', '#NovoLog', NovoLog); //Excluir Usuario
 $(document).on('click', '#salvarLog', salvarLog); //Excluir Usuario
 $(document).on('click', '#projetoLogoff', projetoLogoff); //Logoff do Sistema
@@ -118,6 +119,27 @@ function SelecionarProjeto(){
     $("#projeto_btn2").html('<a id="Usuario">Usuarios</a>'); //botão no header
 }
 
+function ExcluirProjeto(){
+	var conf = confirm("Você realmente deseja excluir este Projeto???");
+
+	if (conf == true) {
+		var informacoes = Array('excluirProjeto', $(this).closest('tr').find('#identificacao').html())
+
+		$.ajax({
+			url: '../Controle/Projetos.php',
+			data: JSON.stringify(informacoes),
+			dataType: 'JSON',
+			type: 'POST',
+			success: function(resposta){
+				alert(resposta);
+				Projetos();
+			}
+		})
+	}
+
+	
+}
+
 function zerarInfoUsuario(){
 	$("#infoId").html('');
 	$("#infoNome").html('');
@@ -205,13 +227,27 @@ function ExcluirUsuario(){
 }
 
 function ResetSenhaUsuario(){ // classe para reset de senha de usuario, pendencia de envio de email com senha provisoria
-	var informacoes = Array("resetSenha", $(this).closest('tr').find('#identificacao').html()); 
-	var confirmacao = confirm("Você deseja realmente resetar a Senha do Usuario "+$(this).closest('tr').find('#exibirUsuario').html()+"?");
-	
-	if (confirmacao == true){
-		alert (informacoes[1]);
-	}
+	$("#idUsuario").html($(this).closest('tr').find('#identificacao').html());
+	$("#nomeUsuario").html($(this).closest('tr').find('#exibirUsuario').html());
+	modal('modalResetSenha', 'abrir');
+}
 
+function SalvarNovaSenha(){  //Alterar Senha
+	var informacoes = Array('alteraSenha', $("#novaSenha").val(), $("#confirmaSenha").val(), $("#idUsuario").html());
+	if (informacoes[1] !== informacoes[2] ||  informacoes[1] == '') {
+		alert('Senhas não conferem ou em branco');
+	}else{
+		$.ajax({
+			url: '../Controle/Usuarios.php',
+			data: JSON.stringify(informacoes),
+			dataType: 'JSON',
+			type: 'POST',
+			success: function(resposta){
+				alert(resposta);
+				modalClose();
+			}
+		})
+	}
 }
 
 function NovoLog(){

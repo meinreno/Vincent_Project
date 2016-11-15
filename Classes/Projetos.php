@@ -75,8 +75,8 @@ class NovoProjeto extends MeuSQL
 	}
 
 	function cadastrar_novoProjeto(){
-		$chave_novoProjeto = Array('nome_projeto', 'razao_social', 'nome_fantasia', 'cnpj', 'ie', 'logradouro', 'bairro', 'numero', 'cep', 'municipio', 'estado', 'telefone', 'email', 'cliente_responsavel', 'tel_responsavel', 'dia_inicio', 'dia_fim', 'dia_cobranca', 'forma_pagamento', 'valor_contrato');//Armazenar informações em Array para usar como chave na classe MeuSQL
-		$dados_novoProjeto = Array($this->nome_projeto, $this->razao_social, $this->nome_fantasia, $this->cnpj, $this->ie, $this->logradouro, $this->bairro, $this->numero, $this->cep, $this->municipio, $this->estado, $this->telefone, $this->email, $this->cliente_responsavel, $this->telefone_responsavel, $this->dia_inicio, $this->dia_fim, $this->dia_cobranca, $this->forma_pagamento, $this->valor_contrato);//Armazenar informações em Array para alimentar BD
+		$chave_novoProjeto = Array('nome_projeto', 'razao_social', 'nome_fantasia', 'cnpj', 'ie', 'logradouro', 'bairro', 'numero', 'cep', 'municipio', 'estado', 'telefone', 'email', 'cliente_responsavel', 'tel_responsavel', 'dia_inicio', 'dia_fim', 'dia_cobranca', 'forma_pagamento', 'valor_contrato', 'status');//Armazenar informações em Array para usar como chave na classe MeuSQL
+		$dados_novoProjeto = Array($this->nome_projeto, $this->razao_social, $this->nome_fantasia, $this->cnpj, $this->ie, $this->logradouro, $this->bairro, $this->numero, $this->cep, $this->municipio, $this->estado, $this->telefone, $this->email, $this->cliente_responsavel, $this->telefone_responsavel, $this->dia_inicio, $this->dia_fim, $this->dia_cobranca, $this->forma_pagamento, $this->valor_contrato, 1);//Armazenar informações em Array para alimentar BD
 	
 		$this->conectarSQL('vincent_project'); //Selecionando Banco de dados e ativar a conexão com o Mysql
 
@@ -109,7 +109,7 @@ class ApresentarProjeto extends MeuSQL
 	function MostrarProjetos(){
 		$this->conectarSQL('vincent_project'); //conexão BD
 		$this->con->query("SET NAMES 'utf8'");
-		$query = "SELECT id, nome_projeto, razao_social, cnpj, cliente_responsavel, tel_responsavel FROM projetos ORDER BY razao_social";
+		$query = "SELECT id, nome_projeto, razao_social, cnpj, cliente_responsavel, tel_responsavel FROM projetos WHERE status=1 ORDER BY razao_social";
 		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
 
 		return $resultado;
@@ -189,5 +189,25 @@ class LogTools extends MeuSQL
 		//$horaLog = explode(':', $horaLog, 3);
 		$novaDataHora = $dataLog[2]."/".$dataLog[1]."/".$dataLog[0]." ".$horaLog;
 		return($novaDataHora);
+	}
+}
+
+/**
+* Classe com ferramentas para Proejtos
+*/
+class ProjetoTools extends MeuSQL
+{
+	
+	function __construct()
+	{
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
+	}
+
+	function ExcluirProjeto($idProjeto){
+		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->con->query("SET NAMES 'utf8'");
+		$query = "UPDATE projetos SET status=0 WHERE id=$idProjeto";
+		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
+		echo json_encode("Projeto Excluido com Sucesso, caso tenha apagado por engano, ligue para o Gabriel (11)94712-6466");
 	}
 }

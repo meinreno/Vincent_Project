@@ -41,7 +41,7 @@
 													<td>".$exibirUsuarios['email']."</td>
 													<td>".$exibirUsuarios['telefone']."</td>
 													<td><div class='button' id='InfoUsuario'>Info</div></td>
-													<td><div class='button' id='ResetSenhaUsuario'>Reset Pass</div></td>
+													<td><div class='button ResetSenhaUsuario' id=''>Reset Pass</div></td>
 													<td><div class='button' id='ExcluirUsuario'>Excluir</div></td>
 												</tr>");
 										}
@@ -53,6 +53,7 @@
 				</div>
 			</div>
 		</div> <!--.cellPanel-->
+
 		
 		<div class="modal" id="modalInfoUsuario">
 			<div class="modal-content">
@@ -83,6 +84,43 @@
 						</form>
 						<div class="cell">
 							<div class="col width-2of12 button" id="EditarUsuario">Editar</div>
+							<div class="col width-2of12 button" id="modalClose">Fechar</div>
+						</div>
+					</div> <!--.body-->
+				</div> <!--.cell panel-->
+			</div> <!--.modal-content-->
+		</div><!--.modal-->
+
+		<div class="modal" id="modalResetSenha">
+			<div class="modal-content">
+				<span class="modalClose" id="modalClose">x</span>
+				<div class="cell panel">
+				<div class="header">
+					<center>Reset Senha</center>
+				</div>
+					<div class="body">
+						<div class="cell">
+							<div class="col width-4of12">
+								ID: <negrito id='idUsuario'></negrito>
+							</div>
+							<div class="col width-4of12">
+								Usuario: <negrito id='nomeUsuario'></negrito>
+							</div>
+						</div>
+						<form id="">
+							<div class="cell">
+								<div class="col width-4of12">
+									Senha: <input type="password" placeholder="Nova Senha" id="novaSenha">
+								</div>
+							</div>
+							<div class="cell">
+								<div class="col width-4of12">
+									Confirma Senha: <input type="password" placeholder="Confirma Senha" id="confirmaSenha">
+								</div>
+							</div>
+						</form>
+						<div class="cell">
+							<div class="col width-2of12 button" id="SalvarNovaSenha">Salvar</div>
 							<div class="col width-2of12 button" id="modalClose">Fechar</div>
 						</div>
 					</div> <!--.body-->
@@ -151,6 +189,7 @@
 				</div> <!--.cell panel-->
 			</div> <!--.modal-content-->
 		</div><!--.modal-->
+		
 	</div>
 
 </div>
