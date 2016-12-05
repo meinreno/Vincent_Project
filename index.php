@@ -1,7 +1,7 @@
 <?php
 	if (isset($_COOKIE['emailUsuario'])) {
 		header("Location: home.php"); //caso o usuario não tenha feito logoff
-	}
+		exit();}
  ?>
 <!DOCTYPE html>
 <html>
