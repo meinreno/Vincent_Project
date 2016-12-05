@@ -2,6 +2,14 @@
 	if (isset($_COOKIE['emailUsuario'])) {
 		header("Location: home.php"); //caso o usuario não tenha feito logoff
 		exit();}
+
+if(isset($_POST['login_email'])){
+				include 'Classes/Usuarios.php';
+
+				$loginUsuario = new LoginUsuario($_POST['login_email'], $_POST['login_senha']);
+
+				$loginUsuario->login();
+			}
  ?>
 <!DOCTYPE html>
 <html>
@@ -83,15 +91,7 @@
 
 	    	</div>
 	    </div>
-	    <?php
-			if(isset($_POST['login_email'])){
-				include 'Classes/Usuarios.php';
 
-				$loginUsuario = new LoginUsuario($_POST['login_email'], $_POST['login_senha']);
-
-				$loginUsuario->login();
-			}
-		?>
 
     	
     </div>

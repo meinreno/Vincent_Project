@@ -8,7 +8,7 @@
 */
 
 
-header("Content-Type: text/html; charset=UTF-8");
+//header("Content-Type: text/html; charset=UTF-8");
 //mysql_query("SET NAMES 'utf8'");
 
 

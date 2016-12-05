@@ -1,7 +1,4 @@
 <?php
-header("Content-Type: text/html; charset=UTF-8");
-
-
 include "MeuSQL.php";
 include "CriptografiaSenha.php"; //Incluindo classe para criptografia senha;
 
@@ -30,7 +27,7 @@ class novoUsuario extends MeuSQL
 
 	public function __construct($getNome, $getSobrenome, $getEmail, $getSenha, $getTelefone, $getLogradouro, $getBairro, $getNumero, $getCep, $getMunicipio, $getEstado) //função construtora para armazenar informações do novo usuario
 	{
-		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
+		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL
 		$this->nome = $getNome;
 		$this->sobrenome = $getSobrenome;
 		$this->email = $getEmail;
@@ -47,7 +44,7 @@ class novoUsuario extends MeuSQL
 
 	function verificaExistencia_Usuario($email_Busca){//verificar existencia de usuario pelo email.
 		
-		$this->conectarSQL('vincent_project'); //conexão com o BD
+		$this->conectarSQL('royal210_vincentProject'); //conexão com o BD
 		$this->con->query("SET NAMES 'utf8'");
 		$query = "SELECT email FROM usuarios WHERE email='".$email_Busca."'"; //query para verificar a existencia de usuario pelo email
 		$resultado = $this->con->query($query) or die ($this->con->error); //executando Query
@@ -94,14 +91,14 @@ class LoginUsuario extends MeuSQL
 	
 	function __construct($getEmail, $getSenha)
 	{
-		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
+		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL
 		$this->Email = $getEmail;
 		$this->Senha = $getSenha;
 	}
 
 	function login() //função login do usuario
 	{
-		$this->conectarSQL('vincent_project'); //conectando ao BD
+		$this->conectarSQL('royal210_vincentProject'); //conectando ao BD
 		$this->con->query("SET NAMES 'utf8'");
 		$query = "SELECT * FROM usuarios WHERE email='".$this->Email."'"; //selecionando todos os campos necesarios para verificar se usuario e senha estão corretos
 
@@ -116,31 +113,11 @@ class LoginUsuario extends MeuSQL
 		
 
 		if($hash === $coluna['senha']){ //verificando se senha está correta
-			setcookie('emailUsuario', $this->Email, time()+3600, '/', $_SERVER['SERVER_NAME']); //Setando Cookie para guardar email do usuario
 			header("Location: ../home.php"); //caso a senha estejá correta, o codigo irá direcionar o usuario para a pagina desejada
+			setcookie('emailUsuario', $this->Email, time()+3600, '/', $_SERVER['SERVER_NAME']); //Setando Cookie para guardar email do usuario
+			exit();
 		}else{
-			echo '<div class="col center width-2of4">
-                    <div class="cell panel">
-                        <div class="header">
-                           Aviso
-                        </div>
-                        <div class="body">
-                            <div class="cell">
-                                <div class="col">
-                                    <div class="cell">
-                                        <div class="color-red center" style="width:200px;max-width:100%;">
-                                            <div class="col width-fit mobile-width-fit"><span class="icon icon-warning-sign"></span>
-                                            </div>
-                                            <div class="col width-fill mobile-width-fill">
-                                                Senha ou usuario Incorreto!
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>';
+			echo "<script>alert('Usuario ou Senha Incorretos');</script>";
 		}
 
 		
@@ -161,11 +138,11 @@ class ApresentarUsuario extends MeuSQL
 	
 	function __construct()
 	{
-		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL	
+		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL	
 	}
 
 	function MostrarTodosUsuarios(){
-		$this->conectarSQL('vincent_project'); //conectando ao BD
+		$this->conectarSQL('royal210_vincentProject'); //conectando ao BD
 		$this->con->query("SET NAMES 'utf8'");
 		$query = "SELECT * FROM usuarios ORDER BY nome"; //selecionando todos os campos necesarios para verificar se usuario e senha estão corretos
 
@@ -174,7 +151,7 @@ class ApresentarUsuario extends MeuSQL
 	}
 
 	function MostrarInfoUsuario($idUsuario){
-		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->conectarSQL('royal210_vincentProject'); //conexão BD
 		$this->con->query("SET NAMES 'utf8'");
 		$query = "SELECT id, nome, sobrenome, email, telefone, logradouro, bairro, numero, cep, municipio, estado FROM usuarios WHERE id='".$idUsuario."'";
 		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
@@ -192,14 +169,14 @@ class ToolsUsuarios extends MeuSQL
 	
 	function __construct()
 	{
-		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL	
+		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL	
 	}
 
 
 	//Excluir Usuario
 
 	function ExcluirUsuario($idUsuario){
-		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->conectarSQL('royal210_vincentProject'); //conexão BD
 		$this->excluirLinha('usuarios', 'id', $idUsuario); //função da Classe MeuSql para excluir linha de tabela
 	}
 
@@ -214,22 +191,22 @@ class ToolsUsuarios extends MeuSQL
 	function AlteraSenha($idUsuario, $novaSenha){
 		$CriptografadorSenha = new CriptografiaSenha($novaSenha); //Criando objeto para criptografar senha
 
-		$salt = $CriptografadorSenha::geraSaltAleatorio(22); //Gerando o Salto
+		$salt = $CriptografadorSenha->geraSaltAleatorio(22); //Gerando o Salto
 
 		
 		$SenhaCriptografada = $CriptografadorSenha->gerarHash($salt); //gerando senha com o salt
 
-		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->conectarSQL('royal210_vincentProject'); //conexão BD
 		$this->con->query("SET NAMES 'utf8'");
 
 		$query = "UPDATE usuarios SET salt = '".$salt."', senha = '".$SenhaCriptografada."' WHERE id=$idUsuario";
 		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
 		echo json_encode("Senha Alterada Com Sucesso");
 	}
-
+	
 	function EditarUsuario($getID, $getNome, $getSobrenome, $getEmail, $getTelefone, $getLogradouro, $getBairro, $getNumero, $getCep, $getMunicipio, $getEstado){
 
-		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->conectarSQL('royal210_vincentProject'); //conexão BD
 		$this->con->query("SET NAMES 'utf8'");
 
 		$query = "UPDATE usuarios SET nome = '".$getNome."', sobrenome = '".$getSobrenome."', email = '".$getEmail."', telefone = '".$getTelefone."', logradouro = '".$getLogradouro."', bairro = '".$getBairro."', numero = '".$getNumero."', cep = '".$getCep."', municipio = '".$getMunicipio."', estado = '".$getEstado."' WHERE id=$getID";
