@@ -210,4 +210,15 @@ class ProjetoTools extends MeuSQL
 		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
 		echo json_encode("Projeto Excluido com Sucesso, caso tenha apagado por engano, ligue para o Gabriel (11)94712-6466");
 	}
+
+	function salvarEditarProjeto($getId, $getNome_Projeto, $getRazao_Social, $getNome_Fantasia, $getCnpj, $getIe, $getLogradouro, $getBairro, $getNumero, $getCep, $getMunicipio, $getEstado, $getTelefone, $getEmail, $getCliente_Responsavel, $getTelefone_Responsavel, $getDia_Inicio, $getDia_Fim, $getDia_Cobranca, $getForma_Pagamento, $getValor_Contrato){
+
+		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->con->query("SET NAMES 'utf8'");
+		$query = "UPDATE projetos SET nome_projeto = '".$getNome_Projeto."', razao_social = '".$getRazao_Social."', nome_fantasia = '".$getNome_Fantasia."', cnpj = '".$getCnpj."', ie = '".$getIe."', logradouro = '".$getLogradouro."', bairro = '".$getBairro."', numero = '".$getNumero."', cep = '".$getCep."', municipio = '".$getMunicipio."', estado = '".$getEstado."', telefone = '".$getTelefone."', email = '".$getEmail."', cliente_responsavel = '".$getCliente_Responsavel."', tel_responsavel = '".$getTelefone_Responsavel."', dia_inicio = '".$getDia_Inicio."', dia_fim = '".$getDia_Fim."', dia_cobranca = '".$getDia_Cobranca."', forma_pagamento = '".$getForma_Pagamento."', valor_contrato = '".$getValor_Contrato."' WHERE id=$getId";
+		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
+		echo json_encode("Projeto Atualizado com sucesso");
+
+
+	}
 }

@@ -41,3 +41,8 @@
 		$alterarSenha = new ToolsUsuarios;
 		$alterarSenha->AlteraSenha($informacoes[3], $informacoes[1]);
 	}
+
+	if ($informacoes[0] == 'SalvarEditarUsuario') {
+		$alterarUsuario = new ToolsUsuarios;
+		$alterarUsuario->EditarUsuario($informacoes[1], $informacoes[2]['value'], $informacoes[3]['value'], $informacoes[4]['value'], $informacoes[5]['value'], $informacoes[6]['value'], $informacoes[7]['value'], $informacoes[8]['value'], $informacoes[9]['value'], $informacoes[10]['value'], $informacoes[11]['value']);
+	}

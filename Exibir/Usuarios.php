@@ -128,6 +128,68 @@
 			</div> <!--.modal-content-->
 		</div><!--.modal-->
 
+		<div class="modal" id="modalEditarUsuario">
+			<div class="modal-content">
+				<span class="modalClose" id="modalClose">x</span>
+				<div class="cell panel">
+				<div class="header">
+					<center>Editar Usuario</center>
+				</div>
+					<div class="body">
+						<form id="FormEditarUsuario">
+							<div class="cell">
+								<div class="col width-1of12"><div class='negrito'>ID:</div> <div id="editar_id"></div></div>
+							</div>
+							<div class="cell">
+								<div class="col width-4of12">
+									Nome: <input type="text" placeholder="Nome" id="editar_nome" name="editar_nome">
+								</div>
+								<div class="col width-4of12">
+									Sobrenome: <input type="text" placeholder="Sobrenome" id="editar_sobrenome" name="editar_sobrenome">
+								</div>
+								<div class="col width-4of12">
+									E-Mail: <input type="text" placeholder="E-Mail" id="editar_email" name="editar_email">
+								</div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-6of12">
+									Telefone: <input type="text" placeholder="Telefone" id="editar_telefone" name="editar_telefone">
+								</div>
+							</div>
+							<div class="cell">
+								<div class="col width-12of12">
+									Logradouro: <input type="text" placeholder="Logradouro Ex.: Rua dos Alfeneiros" id="editar_logradouro" name="editar_logradouro">
+								</div>
+							</div>
+							<div class="cell">
+								<div class="col width-4of12">
+									Bairro: <input type="text" placeholder="Bairro" id="editar_bairro" name="editar_bairro">
+								</div>
+								<div class="col width-4of12">
+									Numero: <input type="text" placeholder="Numero Ex.: 4" id="editar_numero" name="editar_numero">
+								</div>
+								<div class="col width-4of12">
+									CEP: <input type="text" placeholder="Cep Ex. 08970-000" id="editar_cep" name="editar_cep">
+								</div>
+							</div>
+							<div class="cell">
+								<div class="col width-6of12">
+									Municipio: <input type="text" placeholder="Municipio" id="editar_municipio" name="editar_municipio">
+								</div>
+								<div class="col width-6of12">
+									Estado(Exemplo: SP): <input type="text" placeholder="Estado Ex.: SP" id="editar_estado" name="editar_estado">
+							</div>
+						</form>
+						<div class="cell">
+							<div class="col width-2of12 button" id="SalvarEditarUsuario">Salvar</div>
+							<div class="col width-2of12 button" id="modalClose">Fechar</div>
+						</div>
+					</div> <!--.body-->
+				</div> <!--.cell panel-->
+			</div> <!--.modal-content-->
+		</div><!--.modal-->
+
 		<div class="modal" id="modalNovoUsuario">
 			<div class="modal-content">
 				<span class="modalClose" id="modalClose">x</span>
@@ -189,6 +251,8 @@
 				</div> <!--.cell panel-->
 			</div> <!--.modal-content-->
 		</div><!--.modal-->
+
+		
 		
 	</div>
 

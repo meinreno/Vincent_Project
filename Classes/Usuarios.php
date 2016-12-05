@@ -226,6 +226,17 @@ class ToolsUsuarios extends MeuSQL
 		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
 		echo json_encode("Senha Alterada Com Sucesso");
 	}
+
+	function EditarUsuario($getID, $getNome, $getSobrenome, $getEmail, $getTelefone, $getLogradouro, $getBairro, $getNumero, $getCep, $getMunicipio, $getEstado){
+
+		$this->conectarSQL('vincent_project'); //conexão BD
+		$this->con->query("SET NAMES 'utf8'");
+
+		$query = "UPDATE usuarios SET nome = '".$getNome."', sobrenome = '".$getSobrenome."', email = '".$getEmail."', telefone = '".$getTelefone."', logradouro = '".$getLogradouro."', bairro = '".$getBairro."', numero = '".$getNumero."', cep = '".$getCep."', municipio = '".$getMunicipio."', estado = '".$getEstado."' WHERE id=$getID";
+		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
+		echo json_encode("Usuario Alterado com Sucesso");
+
+	}
 	
 }
 

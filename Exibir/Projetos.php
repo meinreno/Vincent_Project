@@ -56,6 +56,108 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="modal" id="modalEditarProjeto">
+			<div class="modal-content">
+				<span class="modalClose" id="modalClose">x</span>
+				<div class="cell panel">
+				<div class="header">
+					<center>Editar Projeto</center>
+				</div>
+					<div class="body">
+						<form id="EditarProjeto">
+							<div class="cell">
+								<div class="col width-2of12"><div class='negrito'>ID:</div> <div id="edit_Id"></div></div>
+							</div>
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Nome Projeto:</div><input type="text" id="edit_nomeProjeto" name="nome_projeto"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Razão Social:</div><input type="text" id="edit_razaoSocial" name="razao_social"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Nome Fantasia:</div><input type="text" id="edit_nomeFantasia" name="nome_fantasia"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>CNPJ (Exemplo: 99.999.999/9999-99):</div><input type="text" id="edit_cnpj" name="cnpj"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>IE (Exemplo: 999.999.999.999):</div><input type="text" id="edit_ie" name="ie"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Logradouro:</div><input type="text" id="edit_logradouro" name="logradouro"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Bairro:</div><input type="text" id="edit_bairro" name="bairro"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Numero:</div><input type="text" id="edit_numero" name="numero"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>CEP (Exemplo: 08970-000):</div><input type="text" id="edit_cep" name="cep"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Municipio:</div><input type="text" id="edit_municipio" name="municipio"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Estado (Exemplo: SP)</div><input type="text" id="edit_estado" name="estado"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Telefone:</div><input type="text" id="edit_telefone" name="telefone"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>E-mail:</div><input type="text" id="edit_email" name="email"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Cliente Responsavel:</div><input type="text" id="edit_cliResp" name="cliente_responsavel"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Telefone Responsavel:</div><input type="text" id="edit_telResp" name="telefone_responsavel"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Dia Inicio (Exemplo: 16/12/1991):</div><input type="text" id="edit_diaInic" name="dia_inicio"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Dia Fim (Exemplo: 16/12/1991):</div><input type="text" id="edit_diaFim" name="dia_fim"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Dia Cobrança:</div><input type="text" id="edit_diaCobranca" name="dia_cobranca"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Forma Pagamento:</div><input type="text" id="edit_FormPag" name="forma_pagamento"></div>
+							</div>
+
+							<div class="cell">
+								<div class="col width-fill"><div class='negrito'>Valor Contrato:</div><input type="text" id="edit_ValContra" name="valor_contrato"></div>
+							</div>
+						</form>
+						<div class="cell">
+							<div class="col width-2of12 button" id="SalvarEditProjeto">Salvar</div>
+							<div class="col width-2of12 button" id="modalClose">Fechar</div>
+						</div>
+					</div> <!--.body-->
+				</div> <!--.cell panel-->
+			</div> <!--.modal-content-->
+		</div><!--.modal-->
+
 		<div class="modal" id="modalInfoProjeto">
 			<div class="modal-content">
 				<span class="modalClose" id="modalClose">x</span>
@@ -101,7 +203,7 @@
 							</div>
 						</form>
 						<div class="cell">
-							<div class="col width-2of12 button">Editar</div>
+							<div class="col width-2of12 button" id="editarProjeto">Editar</div>
 							<div class="col width-2of12 button" id="modalClose">Fechar</div>
 						</div>
 					</div> <!--.body-->

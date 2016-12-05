@@ -1,13 +1,17 @@
 $(document).on('click', '#Projetos', Projetos); //.load projeto no corpo do home
+$(document).on('click', '#editarProjeto', editarProjeto); //Btn editar Projeto
 $(document).on('click', '#infoProjeto', infoProjeto); //mostrar todos as informações do projeto no Modal
 $(document).on('click', '#NovoProjeto', NovoProjeto); //abrir cadastro de novo projeto
 $(document).on('click', '#SalvarNovoProjeto', SalvarNovoProjeto); //.btn salvar projeto novo
+$(document).on('click', '#SalvarEditProjeto', SalvarEditProjeto);
 $(document).on('click', '#SelecionarProjeto', SelecionarProjeto); //Excluir Usuario
 $(document).on('click', '.ExcluirProjeto', ExcluirProjeto); //Excluir Projeto
 $(document).on('click', '#Usuario', Usuario); //.load usuarios no corpo do Home
 $(document).on('click', '#NovoUsuario', NovoUsuario); //.load novoUsuario no corpo do Home
 $(document).on('click', '#InfoUsuario', InfoUsuario); //mostrar todos as informações do projeto no Modal
 $(document).on('click', '#SalvarNovoUsuario', SalvarNovoUsuario); //.btn salvar Usuario novo
+$(document).on('click', '#EditarUsuario', EditarUsuario); //.btn salvar Usuario novo
+$(document).on('click', '#SalvarEditarUsuario', SalvarEditarUsuario); //.btn salvar Usuario novo
 $(document).on('click', '#ExcluirUsuario', ExcluirUsuario); //Excluir Usuario
 $(document).on('click', '.ResetSenhaUsuario', ResetSenhaUsuario); //Excluir Usuario
 $(document).on('click', '#SalvarNovaSenha', SalvarNovaSenha); //Excluir Usuario
@@ -48,6 +52,72 @@ function zerarInfoProjeto(){
 	$("#infoDiaCobranca").html('');
 	$("#infoFormaPagamento").html('');
 	$("#infoValorContrato").html('');
+}
+
+function zerarEditarProjeto(){
+	$("#edit_nomeProjeto").val('');
+	$("#edit_razaoSocial").val('');
+	$("#edit_nomeFantasia").val('');
+	$("#edit_cnpj").val('');
+	$("#edit_ie").val('');
+	$("#edit_logradouro").val('');
+	$("#edit_bairro").val('');
+	$("#edit_numero").val('');
+	$("#edit_cep").val('');
+	$("#edit_municipio").val('');
+	$("#edit_estado").val('');
+	$("#edit_telefone").val('');
+	$("#edit_email").val('');
+	$("#edit_cliResp").val('');
+	$("#edit_telResp").val('');
+	$("#edit_diaIni").val('');
+	$("#edit_diaFim").val('');
+	$("#edit_diaCobranca").val('');
+	$("#edit_FormPag").val('');
+	$("#edit_ValContra").val('');
+}
+
+
+function editarProjeto(){
+	zerarEditarProjeto()
+	modalClose();
+
+	var idProjeto = Array("infoProjeto", $("#infoId").html());
+
+	$.ajax({
+		url: "../Controle/Projetos.php",
+		data: JSON.stringify(idProjeto),
+		type: "POST",
+		dataType: "json",
+		success: function(resultado){
+			$("#edit_Id").html(resultado['id']);
+			$("#edit_nomeProjeto").val(resultado['nome_projeto']);
+			$("#edit_cnpj").val(resultado['cnpj']);
+			$("#edit_ie").val(resultado['ie']);
+			$("#edit_razaoSocial").val(resultado['razao_social']);
+			$("#edit_nomeFantasia").val(resultado['nome_fantasia']);
+			$("#edit_logradouro").val(resultado['logradouro']);
+			$("#edit_bairro").val(resultado['bairro']);
+			$("#edit_numero").val(resultado['numero']);
+			$("#edit_cep").val(resultado['cep']);
+			$("#edit_municipio").val(resultado['municipio']);
+			$("#edit_estado").val(resultado['estado']);
+			$("#edit_telefone").val(resultado['telefone']);
+			$("#edit_email").val(resultado['email']);
+			$("#edit_cliResp").val(resultado['cliente_responsavel']);
+			$("#edit_telResp").val(resultado['tel_responsavel']);
+			$("#edit_diaInic").val(resultado['dia_inicio']);
+			$("#edit_diaFim").val(resultado['dia_fim']);
+			$("#edit_diaCobranca").val(resultado['dia_cobranca']);
+			$("#edit_FormPag").val(resultado['forma_pagamento']);
+			$("#edit_ValContra").val(resultado['valor_contrato']);
+			modalClose();
+			modal('modalEditarProjeto', 'abrir');
+
+		} 
+			
+		});
+
 }
 
 function infoProjeto(){
@@ -112,6 +182,25 @@ function SalvarNovoProjeto(){ //.btn salvar projeto novo
 	})
 }; 
 
+function SalvarEditProjeto(){
+	var informacoes = $('#EditarProjeto').serializeArray(); //informações do novo projeto
+	informacoes.unshift($("#edit_Id").html());
+	informacoes.unshift('salvarEditarProjeto');
+
+	$.ajax({
+		url: '../Controle/Projetos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(retorno){
+			alert(retorno);
+			Projetos();
+
+			
+		}//success
+	})
+}
+
 function SelecionarProjeto(){
 	var idProjeto = $(this).closest('tr').find('#identificacao').html();
 	$("#CorpoHome").load("./Exibir/LogProjeto.php", {"idProjeto": idProjeto} );
@@ -155,6 +244,21 @@ function zerarInfoUsuario(){
 
 };
 
+function zerarEditarUsuario(){
+	$("#editar_id").html('');
+	$("#editar_nome").val('');
+	$("#editar_sobrenome").val('');
+	$("#editar_email").val('');
+	$("#editar_telefone").val('');
+	$("#editar_logradouro").val('');
+	$("#editar_bairro").val('');
+	$("#editar_numero").val('');
+	$("#editar_cep").val('');
+	$("#editar_municipio").val('');
+	$("#editar_estado").val('');
+
+};
+
 function Usuario(){
 	$("#CorpoHome").load("./Exibir/Usuarios.php")
 	$("#projeto_btn1").html('<a id="Projetos">Voltar a Projetos</a>'); //botão no header
@@ -194,6 +298,56 @@ function InfoUsuario(){
 function SalvarNovoUsuario(){
 	var informacoes = $('#FormNovoUsuario').serializeArray(); //informações do novo projeto
 	informacoes.unshift('SalvarNovoUsuario');
+
+	$.ajax({
+		url: '../Controle/Usuarios.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(retorno){
+			alert(retorno);
+			modalClose();
+			Usuario();
+		}//success
+	})
+}
+
+function EditarUsuario(){
+	zerarEditarUsuario()
+	modalClose();
+
+	var idUsuario = Array("infoUsuario", $("#infoId").html());
+
+	$.ajax({
+		url: '../Controle/Usuarios.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(idUsuario),
+		success: function(resultado){
+			$("#editar_id").html(resultado['id']);
+			$("#editar_nome").val(resultado['nome']);
+			$("#editar_sobrenome").val(resultado['sobrenome']);
+			$("#editar_email").val(resultado['email']);
+			$("#editar_telefone").val(resultado['telefone']);
+			$("#editar_logradouro").val(resultado['logradouro']);
+			$("#editar_bairro").val(resultado['bairro']);
+			$("#editar_numero").val(resultado['numero']);
+			$("#editar_cep").val(resultado['cep']);
+			$("#editar_municipio").val(resultado['municipio']);
+			$("#editar_estado").val(resultado['estado']);
+
+			modal('modalEditarUsuario', 'abrir');
+			
+		}
+	})
+
+
+}
+
+function SalvarEditarUsuario(){
+	var informacoes = $('#FormEditarUsuario').serializeArray(); //informações do novo projeto
+	informacoes.unshift($("#editar_id").html());
+	informacoes.unshift('SalvarEditarUsuario');
 
 	$.ajax({
 		url: '../Controle/Usuarios.php',
