@@ -2,7 +2,6 @@
 	if (isset($_COOKIE['emailUsuario'])) {
 		header("Location: home.php"); //caso o usuario não tenha feito logoff
 		exit();}
-
 if(isset($_POST['login_email'])){
 				include 'Classes/Usuarios.php';
 
@@ -12,92 +11,58 @@ if(isset($_POST['login_email'])){
 			}
  ?>
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Royalle Consultoria Ltda</title>
-	<meta charset="utf-8">
-	<script type="text/javascript" src="Scripts/jquery.js"></script>
-    <link rel="stylesheet" type="text/css" media="all"  href="Cascade/assets/css/cascade/production/build-full.min.css"/>
-    <link rel="stylesheet" type="text/css" media="all"  href="Cascade/assets/css/site.css" />
-    <!--[if lt IE 8]><link rel="stylesheet" href="assets/css/cascade/production/icons-ie7.min.css"><![endif]-->
-    <!--[if lt IE 9]><script src="assets/js/shim/iehtmlshiv.js"></script><![endif]-->
-
-    <!--Logotipo da empresa-->
-    <link rel="shortcut icon" href="Cascade/assets/img/favicon.ico" type="image/x-icon" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-	<div class="site-header-fixture">
-	    <div class="site-header-ghost">
-            <div class="col width-fit mobile-width-fit">
-                <div class="cell">
-                    <a href="#" class="logo"></a>
-                </div>
-            </div>
-            <div class="col width-fill mobile-width-fill">
-                <div class="cell">
-                    <ul class="col nav">
-                        <h1>Royalle Consultoria Ltda.</h1>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="site-header">
-            <div class="col width-fit mobile-width-fit">
-                <div class="cell">
-                    <a href="#" class="logo"></a>
-                </div>
-            </div>
-            <div class="col width-fill mobile-width-fill">
-                <div class="cell">
-                    <ul class="col nav">
-                        <h1>Royalle Consultoria Ltda.</h1>
-                    </ul>
-                </div>
-            </div>
-        </div>
-	    
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Royalle Consultoria Ltda</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="Scripts/jquery.js"></script>
+  </head>
+  <body>
+
+  	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a style="color: black; font-weight: bold;" class="navbar-brand" href="#">Royalle Consultoria Ltda</a>
     </div>
+    <!--<ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Page 1</a></li>
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li>
+    </ul>-->
+  </div>
+</nav>
 
-    <div class="site-body centered-content">
-	    <div class="site-center">
-	    	<div class="cell">
-	    		<div class="col width-4of12"></div>
-			    
-			    <div class="col width-4of12">
-				    <div class="col ">
-		                <div class="cell panel">
-		                    <div class="header">Faça o Login</div>
-		                    <div class="body">
-		                    	<form name="login_usuario" method="POST" action="#">
-		                    		<div class="col">
-			                    		<div class="cell">
-			                    			<input type="text" placeholder="E-Mail" name="login_email">
-			                    		</div>
-			                    		<div class="cell">
-			                    			<input type="password" placeholder="Senha" name="login_senha">
-			                    		</div>
-			                    		<div class="col width-1of2">
-				                    		<div class="cell">
-				                    			<input class="button" type="submit" name="Enviar"/>
-				                    		</div>
-				                    	</div>
-		                    		</div>
-		                    	</form>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
+    <div class="container-fluid col-md-4 col-md-offset-4">
+    	<div class="panel panel-default">
+  			<div class="panel-heading">Faça o Login:</div>
+  			<div class="panel-body">
+  				<form class="form-signin" name="login_usuario" method="POST" action="#">
+			        <label for="inputEmail" class="sr-only">Email address</label>
+			        <input type="email" id="inputEmail" class="form-control" placeholder="Endereço Email" name="login_email" required autofocus>
+			        <label for="inputPassword" class="sr-only">Senha</label>
+			        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="login_senha" required>
+			        <button class="btn btn-lg btn-primary btn-block" type="submit">Acessar</button>
+			    </form>
+  			</div>
+		</div>
+    </div> <!-- /container -->
 
-	    	</div>
-	    </div>
-
-
-    	
-    </div>
-
-		
-	
-<script src="Cascade/assets/js/app.js"></script>
-</body>
+    
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
 </html>

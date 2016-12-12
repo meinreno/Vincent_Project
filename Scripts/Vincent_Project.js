@@ -19,11 +19,6 @@ $(document).on('click', '#NovoLog', NovoLog); //Excluir Usuario
 $(document).on('click', '#salvarLog', salvarLog); //Excluir Usuario
 $(document).on('click', '#projetoLogoff', projetoLogoff); //Logoff do Sistema
 
-
-
-
-
-
 function Projetos(){
 	$("#CorpoHome").load("./Exibir/Projetos.php");
 	$("#projeto_btn1").html('<a id="Usuario">Usuarios</a>'); //botão no header
@@ -151,13 +146,12 @@ function infoProjeto(){
 			$("#infoDiaCobranca").html(resultado['dia_cobranca']);
 			$("#infoFormaPagamento").html(resultado['forma_pagamento']);
 			$("#infoValorContrato").html(resultado['valor_contrato']);
-			modal('modalInfoProjeto', 'abrir');
+			$("#modalInfoProjeto").modal("show");
 
 		} 
 			
 		});
 
-	
 }
 
 function NovoProjeto(){
@@ -437,40 +431,4 @@ function projetoLogoff(){
 
 	})
 	
-}
-
-
-
-
-
-
-
-
-
-
-
-//Modal/////////////////////
-
-var meuModal;
-
-$(document).on('click', '#modalClose', modalClose);
-function modalClose(){
-	meuModal.style.display = 'none';
-}
-
-
-window.onclick = function(event){
-			if (event.target == meuModal){
-				meuModal.style.display = 'none';
-			}
-		}
-
-function modal(nomeModal, comando){
-	meuModal = document.getElementById(nomeModal);
-
-	if (comando === 'abrir'){
-		meuModal.style.display = "block";
-	}else if(comando === 'fechar'){
-		meuModal.style.display = "none";
-	} 
 }

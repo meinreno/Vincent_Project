@@ -3,74 +3,57 @@
         header("Location: index.php"); //caso o usuario não tenha feito logoff
     }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Royalle Consultoria Ltda</title>
 	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Royalle Consultoria Ltda</title>
 	<script type="text/javascript" src="Scripts/jquery.js"></script>
     <script type="text/javascript" src="Scripts/Vincent_Project.js"></script>
-    <link rel="stylesheet" type="text/css" media="all"  href="Cascade/assets/css/cascade/production/build-full.min.css"/>
-    <link rel="stylesheet" type="text/css" media="all"  href="Cascade/assets/css/site.css" />
     <link rel="stylesheet" type="text/css" href="Css/Vincent_Project.css">
-    <!--[if lt IE 8]><link rel="stylesheet" href="assets/css/cascade/production/icons-ie7.min.css"><![endif]-->
-    <!--[if lt IE 9]><script src="assets/js/shim/iehtmlshiv.js"></script><![endif]-->
-
-    <!--Logotipo da empresa-->
-    <link rel="shortcut icon" href="Cascade/assets/img/favicon.ico" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<div class="site-header-fixture">
-            <div class="site-header-ghost">
-                <div class="col width-fit mobile-width-fit">
-                    <div class="cell">
-                        <a href="../home.php" class="logo"></a>
-                    </div>
-                </div>
-                <div class="col width-fill mobile-width-fill">
-                    <div class="cell">
-                        <ul class="col nav">
-                            <li class="active"><a href="#">Novo Usuario</a></li>
-                            <li class="active"><a href="#">Novo Projeto</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-		<div class="site-header">
-            <div class="col width-fit mobile-width-fit">
-                <div class="cell">
-                    <a href="../home.php" class="logo"></a>
-                </div>
-            </div>
-            <div class="col width-6of12 mobile-width-fill">
-                <div class="cell">
-                    <ul class="col nav">
-                        <li class="active" id="projeto_btn1"></li>
-                        <li class="active" id="projeto_btn2"></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col width-2of12" style="float: right">
-                <div class="cell">
-                    <ul class="col nav">
-                        <li class="active" id="projeto_btnSair"><a id="projetoLogoff">Sair</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
 
-    <div class="site-body centered-content">
-        <div class="site-center">
-            <div id='CorpoHome'></div><!--Div onde ficarão as informações vindas por .load-->
-        </div>
-    </div>
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a style="color: black; font-weight: bold;" class="navbar-brand" href="#">Royalle Consultoria Ltda</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              	<li role="button" id="projeto_btn1"></li>
+	           	<li role="button" id="projeto_btn2"></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li  id="projeto_btnSair"><a id="projetoLogoff">Sair</a></li>
+                </ul>
+              </li>
+            </ul>
+            
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
 
-	
-<script src="Cascade/assets/js/app.js"></script>
-<script type="text/javascript">
+      <!-- Main component for a primary marketing message or call to action -->
+      <div id='CorpoHome'></div>
+
+    </div> <!-- /container -->
+
+
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
     $(document).ready(function(){
         Projetos();
         //$("#CorpoHome").load("./Exibir/Projetos.php")
