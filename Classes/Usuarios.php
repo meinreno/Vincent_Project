@@ -72,11 +72,11 @@ class novoUsuario extends MeuSQL
 		$dados_novoUsuario = Array($this->nome, $this->sobrenome, $this->email, $SenhaCriptografada, $salt, $this->telefone, $this->logradouro, $this->bairro, $this->numero, $this->cep, $this->municipio, $this->estado); //Armazenar informações em Array para alimentar BD
 
 		
-		parent::conectarSQL('vincent_project'); //Selecionando Banco de dados e ativar a conexão com o Mysql
+		parent::conectarSQL('royal210_vincentProject'); //Selecionando Banco de dados e ativar a conexão com o Mysql
 
 		parent::alimentarTabelaID('usuarios', $chave_novoUsuario, $dados_novoUsuario); //Alimentando o BD com as informações do novo usuario.
 
-		return 0;
+		echo json_encode("Usuario cadastrado com sucesso ");
 
 	}
 }

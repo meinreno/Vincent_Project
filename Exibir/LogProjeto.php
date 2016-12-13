@@ -1,52 +1,46 @@
 <?php
 include_once '../Classes/Projetos.php';	
-
 $idProjeto = $_POST['idProjeto']; //capturando id projeto vindo por select
 ?>
+<div id='idProjetoCurrent' style="display:none;"><?php echo $idProjeto; ?></div> <!--Guardando informação de id do projeto para usar no cadastro de novo Log-->
 
-<div>
-	<div id='idProjetoCurrent' style="display:none;"><?php echo $idProjeto; ?></div> <!--Guardando informação de id do projeto para usar no cadastro de novo Log-->
-	<div class="cell">
-		<div class="template-header">
-		<div class="col width-1of11"><div class="button" id="NovoLog">Novo Log</div></div> <!--Botão para cadastro de novo usuario-->
-			<center><h1>Logs Projeto</h1></center>
-		</div>
-		<div class="col">
-			<div class="cell panel"> <!--Panel para apresentação de Log, logs serão apresentado dentro de um <details>-->
-				<div class="body">
-					<?php 
-						$LogTools = new LogTools();
+<button type="button" id="NovoLog" class="btn btn-primary">Novo Log</button><!--Botão para cadastro de novo usuario-->
+<div class="panel panel-default">
+	<div class="panel-heading">
+    	<h3 class="panel-title text-center">Logs Projeto</h3>
+  	</div>
+  	<div class="panel-body"><!--Panel para apresentação de Log, logs serão apresentado dentro de um <details>-->
+  		<?php 
+			$LogTools = new LogTools();
 
-						$resultado = $LogTools->ExibirLogs($idProjeto);
-						while ($exibirLog = $resultado->fetch_array(MYSQLI_ASSOC)) {
-							$novaDataHora = $LogTools->NovaDataHora($exibirLog['data']);
-							echo "<div class='cell panel'> 
-										<div class='body'>
-											<details>
-												<summary><negrito id='identificacao'>ID: ".$exibirLog['id']."</negrito> <negrito>Titulo: </negrito>".$exibirLog['titulo']." <negrito>Usuario: </negrito>".$exibirLog['usuario']." <negrito>Hora e Data: </negrito>".$novaDataHora."</summary>
-												<p>".$exibirLog['log']."</p>
-											</details>
-										</div>
-									</div>
-								";
-							
-						}
-					?>
-					
-				</div> <!--./body -->
-			</div> <!--.cell panel-->
-		</div> <!--.col-->
-
-		<!--Modal para novo log -->
-		<div class="modal" id="modalNovoLog">
-			<div class="modal-content">
-				<span class="modalClose" id="modalClose">x</span>
-				<div class="cell panel">
-					<div class="header">
-						<center>Criar Novo Log</center>
-					</div>
-					<div class="body">
-						<form id="formNovoLog">
+			$resultado = $LogTools->ExibirLogs($idProjeto);
+			while ($exibirLog = $resultado->fetch_array(MYSQLI_ASSOC)) {
+				$novaDataHora = $LogTools->NovaDataHora($exibirLog['data']);
+				echo "<div class='cell panel'> 
+							<div class='body'>
+								<details>
+									<summary ><negrito id='identificacao'>ID: ".$exibirLog['id']."</negrito> <negrito>Titulo: </negrito>".$exibirLog['titulo']." <negrito>Usuario: </negrito>".$exibirLog['usuario']." <negrito>Hora e Data: </negrito>".$novaDataHora."</summary>
+									<p>".$exibirLog['log']."</p>
+								</details>
+							</div>
+						</div>
+					";
+				
+			}
+		?>	
+  	</div>
+</div>
+<div class="modal " id="modalNovoLog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="myModalLabel">Criar Novo Log</h4>
+      </div>
+      <div class="modal-body">
+        	<form id="formNovoLog">
 							<div class="cell">
 								<div class="col width-1of12">Titulo:</div>
 								<div class="col width-6of12"><input type="text" name="tituloLog"></div>
@@ -59,14 +53,13 @@ $idProjeto = $_POST['idProjeto']; //capturando id projeto vindo por select
 							</div>
 								
 								
-							</div>
-							<div class="button" id='salvarLog'>Salvar Log</div>
+							
 						</form>
-
-
-					</div> <!--./Body-->
-
-			</div> <!--./ modal-content-->
-		</div> <!--./ div modalNovolog-->
-	</div> <!--.cell-->
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" id="salvarLog">Salvar Log</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -262,7 +262,7 @@ function Usuario(){
 };
 
 function NovoUsuario(){
-	modal('modalNovoUsuario', 'abrir');
+	$("#modalNovoUsuario").modal('show');
 };
 
 function InfoUsuario(){
@@ -286,7 +286,7 @@ function InfoUsuario(){
 			$("#infoCep").html(resultado['cep']);
 			$("#infoMunicipio").html(resultado['municipio']);
 			$("#infoEstado").html(resultado['estado']);
-			modal('modalInfoUsuario', 'abrir');
+			$("#modalInfoUsuario").modal('show');
 		}
 	})
 }
@@ -302,7 +302,7 @@ function SalvarNovoUsuario(){
 		data: JSON.stringify(informacoes),
 		success: function(retorno){
 			alert(retorno);
-			modalClose();
+			$("#modalNovoUsuario").modal('hide');
 			Usuario();
 		}//success
 	})
@@ -310,7 +310,7 @@ function SalvarNovoUsuario(){
 
 function EditarUsuario(){
 	zerarEditarUsuario()
-	modalClose();
+	
 
 	var idUsuario = Array("infoUsuario", $("#infoId").html());
 
@@ -331,8 +331,9 @@ function EditarUsuario(){
 			$("#editar_cep").val(resultado['cep']);
 			$("#editar_municipio").val(resultado['municipio']);
 			$("#editar_estado").val(resultado['estado']);
-
-			modal('modalEditarUsuario', 'abrir');
+			$("#modalInfoUsuario").modal('hide');
+			$("#modalEditarUsuario").modal('show');
+			
 			
 		}
 	})
@@ -352,7 +353,7 @@ function SalvarEditarUsuario(){
 		data: JSON.stringify(informacoes),
 		success: function(retorno){
 			alert(retorno);
-			modalClose();
+			$("#modalEditarUsuario").modal('hide');
 			Usuario();
 		}//success
 	})
@@ -379,7 +380,7 @@ function ExcluirUsuario(){
 function ResetSenhaUsuario(){ // classe para reset de senha de usuario, pendencia de envio de email com senha provisoria
 	$("#idUsuario").html($(this).closest('tr').find('#identificacao').html());
 	$("#nomeUsuario").html($(this).closest('tr').find('#exibirUsuario').html());
-	modal('modalResetSenha', 'abrir');
+	$("#modalResetSenha").modal('show');
 }
 
 function SalvarNovaSenha(){  //Alterar Senha
@@ -394,15 +395,14 @@ function SalvarNovaSenha(){  //Alterar Senha
 			type: 'POST',
 			success: function(resposta){
 				alert(resposta);
-				modalClose();
+				$("#modalResetSenha").modal('hide');
 			}
 		})
 	}
 }
 
 function NovoLog(){
-	modal('modalNovoLog', 'abrir');
-
+	$("#modalNovoLog").modal('show');
 }
 
 function salvarLog(){
@@ -415,6 +415,7 @@ function salvarLog(){
 		data: JSON.stringify(informacoes),
 		success: function(msg){
 			alert(msg);
+			$("#modalNovoLog").modal('hide');
 			$("#CorpoHome").load("./Exibir/LogProjeto.php", {"idProjeto": informacoes[1]} );
 		}
 	})

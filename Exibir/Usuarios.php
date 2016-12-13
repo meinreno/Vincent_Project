@@ -2,262 +2,234 @@
 	include_once '../Classes/Usuarios.php';
 	$todosUsuarios = new ApresentarUsuario();
 	$Usuarios = $todosUsuarios->MostrarTodosUsuarios();
-
-	
 ?>
-<div class="cell">
-	<div class="template-header">
-		<div class="col width-1of11"><div class="button" id="NovoUsuario">Novo Usuario</div></div>
-		<center><h1>Usuarios</h1></center>
-	</div>
-	<div class="col">
-		<div class="cell panel">
-			<div class="body">
-				<div class="cell">
-					<div class="col">
-						<div class="cell">
-							<table class="outline-header">
-								<thead>
-									<tr>
-										<th class="width-1of12">ID</th>
-										<th class="width-1of12">Nome</th>
-										<th class="width-1of12">Sobrenome</th>
-										<th class="width-2of12">E-Mail</th>
-										<th class="width-1of12">Celular</th>
-										<th class="width-1of12"></th>
-										<th class="width-1of12"></th>
-										<th class="width-1of12"></th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-										//exibindo todos os usuarios em uma tabela
-										while ($exibirUsuarios = $Usuarios->fetch_array(MYSQLI_ASSOC)) {
-											printf("
-												<tr>
-													<td id='identificacao'>".$exibirUsuarios['id']."</td>
-													<td id='exibirUsuario'>".$exibirUsuarios['nome']."</td>
-													<td>".$exibirUsuarios['sobrenome']."</td>
-													<td>".$exibirUsuarios['email']."</td>
-													<td>".$exibirUsuarios['telefone']."</td>
-													<td><div class='button' id='InfoUsuario'>Info</div></td>
-													<td><div class='button ResetSenhaUsuario' id=''>Reset Pass</div></td>
-													<td><div class='button' id='ExcluirUsuario'>Excluir</div></td>
-												</tr>");
-										}
-									 ?>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> <!--.cellPanel-->
 
-		
-		<div class="modal" id="modalInfoUsuario">
-			<div class="modal-content">
-				<span class="modalClose" id="modalClose">x</span>
-				<div class="cell panel">
-				<div class="header">
-					<center>Informações Usuario</center>
-				</div>
-					<div class="body">
-						<form id="">
-							<div class="cell">
-								<div class="col width-1of12"><div class='negrito'>ID:</div> <div id="infoId"></div></div>
-								<div class="col width-2of12"><div class='negrito'>Nome:</div> <div id="infoNome"></div></div>
-								<div class="col width-3of12"><div class='negrito'>Sobrenome:</div> <div id="infoSobrenome"></div></div>
-								<div class="col width-3of12"><div class='negrito'>Email:</div> <div id="infoEmail"></div></div>
-								<div class="col width-3of12"><div class='negrito'>Telefone:</div> <div id="infoTelefone"></div></div>
-							</div>
-							<div class="cell">
-								<div class="col width-6of12"><div class='negrito'>Logradouro:</div> <div id="infoLogradouro"></div></div>
-								<div class="col width-4of12"><div class='negrito'>Bairro:</div> <div id="infoBairro"></div></div>
-								<div class="col width-2of12"><div class='negrito'>Numero:</div> <div id="infoNumero"></div></div>
-							</div>
-							<div class="cell">
-								<div class="col width-1of4"><div class='negrito'>CEP:</div> <div id="infoCep"></div></div>
-								<div class="col width-3of8"><div class='negrito'>Municipio:</div> <div id="infoMunicipio"></div></div>
-								<div class="col width-3of8"><div class='negrito'>Estado:</div> <div id="infoEstado"></div></div>
-							</div>
-						</form>
-						<div class="cell">
-							<div class="col width-2of12 button" id="EditarUsuario">Editar</div>
-							<div class="col width-2of12 button" id="modalClose">Fechar</div>
-						</div>
-					</div> <!--.body-->
-				</div> <!--.cell panel-->
-			</div> <!--.modal-content-->
-		</div><!--.modal-->
-
-		<div class="modal" id="modalResetSenha">
-			<div class="modal-content">
-				<span class="modalClose" id="modalClose">x</span>
-				<div class="cell panel">
-				<div class="header">
-					<center>Reset Senha</center>
-				</div>
-					<div class="body">
-						<div class="cell">
-							<div class="col width-4of12">
-								ID: <negrito id='idUsuario'></negrito>
-							</div>
-							<div class="col width-4of12">
-								Usuario: <negrito id='nomeUsuario'></negrito>
-							</div>
-						</div>
-						<form id="">
-							<div class="cell">
-								<div class="col width-4of12">
-									Senha: <input type="password" placeholder="Nova Senha" id="novaSenha">
-								</div>
-							</div>
-							<div class="cell">
-								<div class="col width-4of12">
-									Confirma Senha: <input type="password" placeholder="Confirma Senha" id="confirmaSenha">
-								</div>
-							</div>
-						</form>
-						<div class="cell">
-							<div class="col width-2of12 button" id="SalvarNovaSenha">Salvar</div>
-							<div class="col width-2of12 button" id="modalClose">Fechar</div>
-						</div>
-					</div> <!--.body-->
-				</div> <!--.cell panel-->
-			</div> <!--.modal-content-->
-		</div><!--.modal-->
-
-		<div class="modal" id="modalEditarUsuario">
-			<div class="modal-content">
-				<span class="modalClose" id="modalClose">x</span>
-				<div class="cell panel">
-				<div class="header">
-					<center>Editar Usuario</center>
-				</div>
-					<div class="body">
-						<form id="FormEditarUsuario">
-							<div class="cell">
-								<div class="col width-1of12"><div class='negrito'>ID:</div> <div id="editar_id"></div></div>
-							</div>
-							<div class="cell">
-								<div class="col width-4of12">
-									Nome: <input type="text" placeholder="Nome" id="editar_nome" name="editar_nome">
-								</div>
-								<div class="col width-4of12">
-									Sobrenome: <input type="text" placeholder="Sobrenome" id="editar_sobrenome" name="editar_sobrenome">
-								</div>
-								<div class="col width-4of12">
-									E-Mail: <input type="text" placeholder="E-Mail" id="editar_email" name="editar_email">
-								</div>
-							</div>
-
-							<div class="cell">
-								<div class="col width-6of12">
-									Telefone: <input type="text" placeholder="Telefone" id="editar_telefone" name="editar_telefone">
-								</div>
-							</div>
-							<div class="cell">
-								<div class="col width-12of12">
-									Logradouro: <input type="text" placeholder="Logradouro Ex.: Rua dos Alfeneiros" id="editar_logradouro" name="editar_logradouro">
-								</div>
-							</div>
-							<div class="cell">
-								<div class="col width-4of12">
-									Bairro: <input type="text" placeholder="Bairro" id="editar_bairro" name="editar_bairro">
-								</div>
-								<div class="col width-4of12">
-									Numero: <input type="text" placeholder="Numero Ex.: 4" id="editar_numero" name="editar_numero">
-								</div>
-								<div class="col width-4of12">
-									CEP: <input type="text" placeholder="Cep Ex. 08970-000" id="editar_cep" name="editar_cep">
-								</div>
-							</div>
-							<div class="cell">
-								<div class="col width-6of12">
-									Municipio: <input type="text" placeholder="Municipio" id="editar_municipio" name="editar_municipio">
-								</div>
-								<div class="col width-6of12">
-									Estado(Exemplo: SP): <input type="text" placeholder="Estado Ex.: SP" id="editar_estado" name="editar_estado">
-							</div>
-						</form>
-						<div class="cell">
-							<div class="col width-2of12 button" id="SalvarEditarUsuario">Salvar</div>
-							<div class="col width-2of12 button" id="modalClose">Fechar</div>
-						</div>
-					</div> <!--.body-->
-				</div> <!--.cell panel-->
-			</div> <!--.modal-content-->
-		</div><!--.modal-->
-
-		<div class="modal" id="modalNovoUsuario">
-			<div class="modal-content">
-				<span class="modalClose" id="modalClose">x</span>
-				<div class="cell panel">
-				<div class="header">
-					<center>Novo Usuario</center>
-				</div>
-					<div class="body">
-						<form id="FormNovoUsuario">
-							<div class="cell">
-								<div class="col width-4of12">
-									Nome: <input type="text" placeholder="Nome" name="novo_nome">
-								</div>
-								<div class="col width-4of12">
-									Sobrenome: <input type="text" placeholder="Sobrenome" name="novo_sobrenome">
-								</div>
-								<div class="col width-4of12">
-									E-Mail: <input type="text" placeholder="E-Mail" name="novo_email">
-								</div>
-							</div>
-
-							<div class="cell">
-								<div class="col width-6of12">
-									Senha: <input type="password" placeholder="Senha" name="novo_senha">
-								</div>
-								<div class="col width-6of12">
-									Telefone: <input type="text" placeholder="Telefone" name="novo_telefone">
-								</div>
-							</div>
-							<div class="cell">
-								<div class="col width-12of12">
-									Logradouro: <input type="text" placeholder="Logradouro Ex.: Rua dos Alfeneiros" name="novo_logradouro">
-								</div>
-							</div>
-							<div class="cell">
-								<div class="col width-4of12">
-									Bairro: <input type="text" placeholder="Bairro" name="novo_bairro">
-								</div>
-								<div class="col width-4of12">
-									Numero: <input type="text" placeholder="Numero Ex.: 4" name="novo_numero">
-								</div>
-								<div class="col width-4of12">
-									CEP: <input type="text" placeholder="Cep Ex. 08970-000" name="novo_cep">
-								</div>
-							</div>
-							<div class="cell">
-								<div class="col width-6of12">
-									Municipio: <input type="text" placeholder="Municipio" name="novo_municipio">
-								</div>
-								<div class="col width-6of12">
-									Estado(Exemplo: SP): <input type="text" placeholder="Estado Ex.: SP" name="novo_estado">
-							</div>
-						</form>
-						<div class="cell">
-							<div class="col width-2of12 button" id="SalvarNovoUsuario">Salvar</div>
-							<div class="col width-2of12 button" id="modalClose">Fechar</div>
-						</div>
-					</div> <!--.body-->
-				</div> <!--.cell panel-->
-			</div> <!--.modal-content-->
-		</div><!--.modal-->
-
-		
-		
-	</div>
-
+<button type="button" id="NovoUsuario" class="btn btn-primary">Novo Usuario</button>
+<div class="panel panel-default">
+	<div class="panel-heading">
+    	<h3 class="panel-title text-center">Usuarios</h3>
+  	</div>
+  	<div class="panel-body">
+   		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>Sobrenome</th>
+					<th class="hidden-xs hidden-sm visible-md visible-lg">E-Mail</th>
+					<th class="hidden-xs hidden-sm visible-md visible-lg">Celular</th>
+					<th></th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+					//exibindo todos os usuarios em uma tabela
+					while ($exibirUsuarios = $Usuarios->fetch_array(MYSQLI_ASSOC)) {
+						printf("
+							<tr>
+								<td id='identificacao'>".$exibirUsuarios['id']."</td>
+								<td id='exibirUsuario'>".$exibirUsuarios['nome']."</td>
+								<td>".$exibirUsuarios['sobrenome']."</td>
+								<td class='hidden-xs hidden-sm visible-md visible-lg'>".$exibirUsuarios['email']."</td>
+								<td class='hidden-xs hidden-sm visible-md visible-lg'>".$exibirUsuarios['telefone']."</td>
+								<td><button type='button' class='btn btn-primary' id='InfoUsuario'>Info</button>
+									<button type='button' class='btn btn-primary ResetSenhaUsuario'>Reset Pass</button>
+									<button type='button' class='btn btn-primary' id='ExcluirUsuario'>Excluir</button></td>
+							</tr>");
+					}
+				 ?>
+			</tbody>
+		</table>
+  	</div>
 </div>
 
+<div class="modal " id="modalInfoUsuario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="myModalLabel">Informações Usuario</h4>
+      </div>
+      <div class="modal-body">
+        	<form id="">
+        		<label class='negrito' for="infoId">ID: </label><span  id="infoId"></span><br>
+        		<label class='negrito' for="infoNome">Nome: </label><span  id="infoNome"></span><br>
+        		<label class='negrito' for="infoSobrenome">Sobrenome: </label><span  id="infoSobrenome"></span><br>
+        		<label class='negrito' for="infoEmail">Email: </label><span  id="infoEmail"></span><br>
+        		<label class='negrito' for="infoTelefone">Telefone: </label><span  id="infoTelefone"></span><br>
+        		<label class='negrito' for="infoLogradouro">Logradouro: </label><span  id="infoLogradouro"></span><br>
+        		<label class='negrito' for="infoBairro">Bairro: </label><span  id="infoBairro"></span><br>
+        		<label class='negrito' for="infoNumero">Numero: </label><span  id="infoNumero"></span><br>
+        		<label class='negrito' for="infoCep">CEP: </label><span  id="infoCep"></span><br>
+        		<label class='negrito' for="infoMunicipio">Municipio: </label><span  id="infoMunicipio"></span><br>
+        		<label class='negrito' for="infoEstado">Estado: </label><span  id="infoEstado"></span><br>
+        	</form>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" id="EditarUsuario">Editar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="modal " id="modalEditarUsuario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="myModalLabel">Editar Usuario</h4>
+      </div>
+      <div class="modal-body">
+        	<form id="FormEditarUsuario">
+        		<label class='negrito' for="editar_id">ID: </label><span id="editar_id"></span><br>
+        		<div class="input-group">
+  					<span class="input-group-addon">Nome:</span>
+  					<input type="text" class="form-control" placeholder="Nome" id="editar_nome" name="editar_nome" aria-describedby="editar_nome">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Sobrenome:</span>
+  					<input type="text" class="form-control" placeholder="Sobrenome" id="editar_sobrenome" name="editar_sobrenome" aria-describedby="editar_sobrenome">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">E-Mail:</span>
+  					<input type="text" class="form-control" placeholder="E-Mail" id="editar_email" name="editar_email" aria-describedby="editar_email">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Telefone:</span>
+  					<input type="text" class="form-control" placeholder="Telefone" id="editar_telefone" name="editar_telefone" aria-describedby="editar_telefone">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Logradouro:</span>
+  					<input type="text" class="form-control" placeholder="Ex.: Rua dos Alfeneiros" id="editar_logradouro" name="editar_logradouro" aria-describedby="editar_logradouro">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Bairro:</span>
+  					<input type="text" class="form-control" placeholder="Bairro" id="editar_bairro" name="editar_bairro" aria-describedby="editar_bairro">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Numero:</span>
+  					<input type="text" class="form-control" placeholder="Ex.: 4" id="editar_numero" name="editar_numero" aria-describedby="editar_numero">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">CEP:</span>
+  					<input type="text" class="form-control" placeholder="Ex. 08970-000" id="editar_cep" name="editar_cep" aria-describedby="editar_cep">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Municipio:</span>
+  					<input type="text" class="form-control" placeholder="Municipio" id="editar_municipio" name="editar_municipio" aria-describedby="editar_municipio">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Estado(Exemplo: SP):</span>
+  					<input type="text" class="form-control" placeholder="Ex.: SP" id="editar_estado" name="editar_estado" aria-describedby="editar_estado">
+				</div>
+			</form>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" id="SalvarEditarUsuario">Salvar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="modal " id="modalResetSenha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="myModalLabel">Reset Senha</h4>
+      </div>
+      <div class="modal-body">
+      		<label class='negrito' for="idUsuario">ID: </label><span  id="idUsuario"></span><br>
+      		<label class='negrito' for="nomeUsuario">Usuario: </label><span  id="nomeUsuario"></span><br>
+        	<form id="">
+        		<div class="input-group">
+  					<span class="input-group-addon">Senha:</span>
+  					<input type="password" class="form-control" placeholder="Nova Senha" id="novaSenha"  aria-describedby="novaSenha">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Confirma Senha:</span>
+  					<input type="password" class="form-control" placeholder="Confirma Senha" id="confirmaSenha"  aria-describedby="confirmaSenha">
+				</div>
+        	</form>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" id="SalvarNovaSenha">Salvar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="modal " id="modalNovoUsuario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title text-center" id="myModalLabel">Novo Usuario</h4>
+      </div>
+      <div class="modal-body">
+        	<form id="FormNovoUsuario">
+        		<div class="input-group">
+  					<span class="input-group-addon">Nome:</span>
+  					<input type="text" class="form-control" placeholder="Nome" name="novo_nome" aria-describedby="novo_nome">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Sobrenome:</span>
+  					<input type="text" class="form-control" placeholder="Sobrenome" name="novo_sobrenome" aria-describedby="editar_sobrenome">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">E-Mail:</span>
+  					<input type="text" class="form-control" placeholder="E-Mail" name="novo_email" aria-describedby="editar_email">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Senha:</span>
+  					<input type="password" class="form-control" placeholder="Senha"  name="novo_senha" aria-describedby="novo_senha">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Telefone:</span>
+  					<input type="text" class="form-control" placeholder="Telefone" name="novo_telefone" aria-describedby="novo_telefone">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Logradouro:</span>
+  					<input type="text" class="form-control" placeholder="Rua dos Alfeneiros" name="novo_logradouro" aria-describedby="novo_logradouro">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Bairro:</span>
+  					<input type="text" class="form-control" placeholder="Bairro" name="novo_bairro" aria-describedby="novo_bairro">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Numero:</span>
+  					<input type="text" class="form-control" placeholder="Ex.: 4" name="novo_numero" aria-describedby="editar_numero">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">CEP:</span>
+  					<input type="text" class="form-control" placeholder="Ex. 08970-000" name="novo_cep" aria-describedby="novo_cep">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Municipio:</span>
+  					<input type="text" class="form-control" placeholder="Municipio" name="novo_municipio" aria-describedby="novo_municipio">
+				</div>
+				<div class="input-group">
+  					<span class="input-group-addon">Estado(Exemplo: SP):</span>
+  					<input type="text" class="form-control" placeholder="Ex.: SP" name="novo_estado" aria-describedby="novo_estado">
+				</div>
+			</form>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" id="SalvarNovoUsuario">Salvar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
