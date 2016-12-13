@@ -75,7 +75,7 @@ function zerarEditarProjeto(){
 
 function editarProjeto(){
 	zerarEditarProjeto()
-	modalClose();
+	
 
 	var idProjeto = Array("infoProjeto", $("#infoId").html());
 
@@ -106,8 +106,8 @@ function editarProjeto(){
 			$("#edit_diaCobranca").val(resultado['dia_cobranca']);
 			$("#edit_FormPag").val(resultado['forma_pagamento']);
 			$("#edit_ValContra").val(resultado['valor_contrato']);
-			modalClose();
-			modal('modalEditarProjeto', 'abrir');
+			$("#modalInfoProjeto").modal("hide");
+			$("#modalEditarProjeto").modal("show");
 
 		} 
 			
@@ -155,7 +155,7 @@ function infoProjeto(){
 }
 
 function NovoProjeto(){
-	modal('modalNovoProjeto', 'abrir');
+	$("#modalNovoProjeto").modal('show');
 }
 
 function SalvarNovoProjeto(){ //.btn salvar projeto novo
@@ -169,6 +169,7 @@ function SalvarNovoProjeto(){ //.btn salvar projeto novo
 		data: JSON.stringify(informacoes),
 		success: function(retorno){
 			alert(retorno);
+			$("#modalNovoProjeto").modal('hide');
 			Projetos();
 
 			
@@ -188,6 +189,7 @@ function SalvarEditProjeto(){
 		data: JSON.stringify(informacoes),
 		success: function(retorno){
 			alert(retorno);
+			$("#modalEditarProjeto").modal("hide");
 			Projetos();
 
 			

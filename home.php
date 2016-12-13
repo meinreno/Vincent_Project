@@ -16,7 +16,7 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 
       <!-- Static navbar -->
       <nav class="navbar navbar-default">
@@ -35,7 +35,7 @@
               	<li role="button" id="projeto_btn1"></li>
 	           	<li role="button" id="projeto_btn2"></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li  id="projeto_btnSair"><a id="projetoLogoff">Sair</a></li>
                 </ul>
