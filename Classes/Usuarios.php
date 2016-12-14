@@ -62,7 +62,7 @@ class novoUsuario extends MeuSQL
 
 		$CriptografadorSenha = new CriptografiaSenha($this->senha); //Criando objeto para criptografar senha
 
-		$salt = $CriptografadorSenha::geraSaltAleatorio(22); //Gerando o Salto
+		$salt = $CriptografadorSenha->geraSaltAleatorio(22); //Gerando o Salto
 
 		
 		$SenhaCriptografada = $CriptografadorSenha->gerarHash($salt); //gerando senha com o salt
