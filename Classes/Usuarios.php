@@ -27,7 +27,7 @@ class novoUsuario extends MeuSQL
 
 	public function __construct($getNome, $getSobrenome, $getEmail, $getSenha, $getTelefone, $getLogradouro, $getBairro, $getNumero, $getCep, $getMunicipio, $getEstado) //função construtora para armazenar informações do novo usuario
 	{
-		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
 		$this->nome = $getNome;
 		$this->sobrenome = $getSobrenome;
 		$this->email = $getEmail;
@@ -91,7 +91,7 @@ class LoginUsuario extends MeuSQL
 	
 	function __construct($getEmail, $getSenha)
 	{
-		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
 		$this->Email = $getEmail;
 		$this->Senha = $getSenha;
 	}
@@ -138,7 +138,7 @@ class ApresentarUsuario extends MeuSQL
 	
 	function __construct()
 	{
-		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL	
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL	
 	}
 
 	function MostrarTodosUsuarios(){
@@ -169,7 +169,7 @@ class ToolsUsuarios extends MeuSQL
 	
 	function __construct()
 	{
-		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL	
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL	
 	}
 
 

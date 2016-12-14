@@ -39,7 +39,7 @@ class NovoProjeto extends MeuSQL
 	
 	function __construct($getNome_Projeto, $getRazao_Social, $getNome_Fantasia, $getCnpj, $getIe, $getLogradouro, $getBairro, $getNumero, $getCep, $getMunicipio, $getEstado, $getTelefone, $getEmail, $getCliente_Responsavel, $getTelefone_Responsavel, $getDia_Inicio, $getDia_Fim, $getDia_Cobranca, $getForma_Pagamento, $getValor_Contrato)
 	{
-		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
 		$this->nome_projeto = $getNome_Projeto;
 		$this->razao_social = $getRazao_Social;
 		$this->nome_fantasia = $getNome_Fantasia;
@@ -102,7 +102,7 @@ class ApresentarProjeto extends MeuSQL
 	
 	function __construct()
 	{
-		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
 
 	}
 	//Função para apresenar projetos na tela inicial
@@ -136,7 +136,7 @@ class MostrarLog extends MeuSQL
 	private $id;	
 	function __construct($getId)
 	{
-		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
 		$this->id = $getId;
 	}
 
@@ -160,7 +160,7 @@ class LogTools extends MeuSQL
 	
 	function __construct()
 	{
-		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
 	}
 
 	function CadastrarLog($id, $titulo, $descricaoLog){
@@ -200,7 +200,7 @@ class ProjetoTools extends MeuSQL
 	
 	function __construct()
 	{
-		parent::__construct('localhost', 'royal210_gabriel', 'Pk3fp$3nH@'); //Função construtor do MeuSQL
+		parent::__construct('localhost', 'root', '1234'); //Função construtor do MeuSQL
 	}
 
 	function ExcluirProjeto($idProjeto){
