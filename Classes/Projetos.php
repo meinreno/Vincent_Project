@@ -167,6 +167,7 @@ class LogTools extends MeuSQL
 		$this->conectarSQL('royal210_vincentProject'); //conexão BD
 		$this->con->query("SET NAMES 'utf8'");
 		$date = new DateTime();
+		$descricaoLog = nl2br($descricaoLog);
 		$dataAtual = $date->format('Y-m-d H:i:s');
 		$query = "INSERT INTO projeto_$id (titulo, log, usuario, data) VALUES ('".$titulo."', '".$descricaoLog."', '".$_COOKIE['emailUsuario']."', '".$dataAtual."')";
 		$resultado = $this->con->query($query) or die ($this->con->error); //Executando query
