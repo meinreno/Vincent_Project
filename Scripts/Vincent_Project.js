@@ -6,6 +6,14 @@ $(document).on('click', '#SalvarNovoProjeto', SalvarNovoProjeto); //.btn salvar 
 $(document).on('click', '#SalvarEditProjeto', SalvarEditProjeto);
 $(document).on('click', '#SelecionarProjeto', SelecionarProjeto); //Excluir Usuario
 $(document).on('click', '.ExcluirProjeto', ExcluirProjeto); //Excluir Projeto
+$(document).on('click', '#modalTarefas', modalTarefas); //Abrir modal Tarefas em Projetos
+$(document).on('click', '.BotaoAddTarefa', BotaoAddTarefa); //Botao para adicionar Tarefa no Projeto
+$(document).on('click', '.descricaoModulo', descricaoModulo); //Botao para abrir descricao Modulo Proejto
+$(document).on('click', '.descricaoTarefa', descricaoTarefa); //Botao para abrir descricao tarefaProjeto
+$(document).on('click', '.concluirTarefa', concluirTarefa);//Botao para concluir  tarefa
+$(document).on('click', '.estornarTarefa', estornarTarefa);//Botao para estornar  tarefa
+$(document).on('click', '.removerTarefa', removerTarefa);//Botao para remover tarefa do Projeto
+
 $(document).on('click', '#Usuario', Usuario); //.load usuarios no corpo do Home
 $(document).on('click', '#NovoUsuario', NovoUsuario); //.load novoUsuario no corpo do Home
 $(document).on('click', '#InfoUsuario', InfoUsuario); //mostrar todos as informações do projeto no Modal
@@ -18,12 +26,31 @@ $(document).on('click', '#SalvarNovaSenha', SalvarNovaSenha); //Excluir Usuario
 $(document).on('click', '#NovoLog', NovoLog); //Excluir Usuario
 $(document).on('click', '#salvarLog', salvarLog); //Excluir Usuario
 $(document).on('click', '#projetoLogoff', projetoLogoff); //Logoff do Sistema
+$(document).on('click', '#Modulo', Modulo); //Botao para abrir Gerenciamento dos Modulos
+$(document).on('click', '#ModalNovoModulo', ModalNovoModulo); //Botao para abrir modal e cadastrar novo modulo
+$(document).on('click', '#SalvarNovoModulo', SalvarNovoModulo); //salvar novo modulo
+$(document).on('click', '.info_modulo', info_modulo);//Botao para apresentar informacoes do modulo
+$(document).on('click', '.editar_modulo', editar_modulo);//Botao para apresentar informacoes do modulo
+$(document).on('click', '.excluir_modulo', excluir_modulo); //Botao para remover o modulo
+$(document).on('click', '.salvarEditModulo', salvarEditModulo);//Botao para salvar Editação de Modulo
+$(document).on('click', '.nova_tarefa', nova_tarefa);//Botao para salvar nova tarefa
+$(document).on('click', '.salvar_novaTarefa', salvar_novaTarefa);
+$(document).on('click', '.info_tarefa', info_tarefa);//Botao para apresentar informacoes do tarefa
+$(document).on('click', '.editar_tarefa', editar_tarefa);//Botao para apresentar informacoes do tarefa
+$(document).on('click', '.salvarEditTarefa', salvarEditTarefa);//Botao para salvar Tarefa editado
+$(document).on('click', '.excluir_tarefa', excluir_tarefa);//Botao para apresentar informacoes do tarefa
+
+
+
+
 
 function Projetos(){
-	$("#CorpoHome").load("./Exibir/Projetos.php");
-	$("#projeto_btn1").html('<a id="Usuario">Usuarios</a>'); //botão no header
-    $("#projeto_btn2").html(''); //botão no header
-};
+	$("#CorpoHome").load("./Exibir/Projetos.php", function(){
+			$("#projeto_btn1").html('<a id="Usuario">Usuarios</a>'); //botão no header
+    	$("#projeto_btn2").html('<a id="Modulo">Modulos</a>'); //botão no header
+	});
+
+}
 
 function zerarInfoProjeto(){
 	$("#infoId").html('');
@@ -75,7 +102,7 @@ function zerarEditarProjeto(){
 
 function editarProjeto(){
 	zerarEditarProjeto()
-	
+
 
 	var idProjeto = Array("infoProjeto", $("#infoId").html());
 
@@ -109,8 +136,8 @@ function editarProjeto(){
 			$("#modalInfoProjeto").modal("hide");
 			$("#modalEditarProjeto").modal("show");
 
-		} 
-			
+		}
+
 		});
 
 }
@@ -148,8 +175,8 @@ function infoProjeto(){
 			$("#infoValorContrato").html(resultado['valor_contrato']);
 			$("#modalInfoProjeto").modal("show");
 
-		} 
-			
+		}
+
 		});
 
 }
@@ -172,10 +199,10 @@ function SalvarNovoProjeto(){ //.btn salvar projeto novo
 			$("#modalNovoProjeto").modal('hide');
 			Projetos();
 
-			
+
 		}//success
 	})
-}; 
+};
 
 function SalvarEditProjeto(){
 	var informacoes = $('#EditarProjeto').serializeArray(); //informações do novo projeto
@@ -192,14 +219,14 @@ function SalvarEditProjeto(){
 			$("#modalEditarProjeto").modal("hide");
 			Projetos();
 
-			
+
 		}//success
 	})
 }
 
 function SelecionarProjeto(){
 	var idProjeto = $(this).closest('tr').find('#identificacao').html();
-	$("#CorpoHome").load("./Exibir/LogProjeto.php", {"idProjeto": idProjeto} );
+	$("#CorpoHome").load("./Exibir/ExibirProjeto.php", {"idProjeto": idProjeto} );
 	$("#projeto_btn1").html('<a id="Projetos">Voltar a Projetos</a>'); //botão no header
     $("#projeto_btn2").html('<a id="Usuario">Usuarios</a>'); //botão no header
 }
@@ -222,7 +249,104 @@ function ExcluirProjeto(){
 		})
 	}
 
+
+}
+
+function modalTarefas(){
+	$("#modalAddTarefa").modal('show');
+}
+
+
+
+function BotaoAddTarefa(){
+	var botao = $(this);
+	var informacoes = Array('adicionarTarefa', $("#idProjetoCurrent").html(), $(this).closest("p").attr("data-modulo"), $(this).closest("p").attr("data-id"));
+
+	$.ajax({
+		url:'../Controle/Projetos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(msg){
+			if (msg == 0) {
+				botao.addClass("disabled");
+				botao.html("Já Adicionado");
+				$("#CorpoTarefas").html('');
+				$("#CorpoTarefas").load("./Exibir/ExibirProjeto.php #CorpoTarefas" , {"idProjeto": informacoes[1]} );
+			}
+			}
+	})
+
 	
+}
+
+function descricaoModulo(){
+	$(".corpoModalDesc").html('');
+	$(".corpoModalDesc").html($(this).closest("p").attr("modulo-descricao"));
+	$("#modalDescricao").modal("show");
+	
+}
+
+function descricaoTarefa(){
+	$(".corpoModalDesc").html('');
+	$(".corpoModalDesc").html($(this).closest("p").attr("tarefa-descricao"));
+	$("#modalDescricao").modal("show");
+	
+}
+
+function concluirTarefa(){
+	var botao = $(this).closest("span");
+	var informacoes = Array("concluirTarefa", $(this).closest("p").attr("data-id"));
+
+	$.ajax({
+		url:'../Controle/Projetos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(msg){
+			if (msg == 0) {
+				botao.html('<button type="button" class="btn btn-danger estornarTarefa" >Estornar</button>');
+			}
+			}
+	})
+}
+
+function estornarTarefa(){
+	var botao = $(this).closest("span");
+	var informacoes = Array("estornarTarefa", $(this).closest("p").attr("data-id"));
+
+	$.ajax({
+		url:'../Controle/Projetos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(msg){
+			if (msg == 0) {
+				botao.html('<button type="button" class="btn btn-danger concluirTarefa" >Concluir</button>');
+			}
+			}
+	})	
+}
+
+function removerTarefa(){
+	var verificacao = confirm("Deseja remover a Tarefa do Projeto???");
+
+	if (verificacao == true) {
+		var informacoes = Array("removerTarefa", $(this).closest("p").attr("data-id"));
+		$.ajax({
+		url:'../Controle/Projetos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(msg){
+				if (msg == 0) {
+					alert("Removido com sucesso");
+					$("#allCorpoTarefa").html('');
+					$("#allCorpoTarefa").load("./Exibir/ExibirProjeto.php #allCorpoTarefa" , {"idProjeto": $("#idProjetoCurrent").html()} );
+				}
+			}
+		})
+	}
 }
 
 function zerarInfoUsuario(){
@@ -256,9 +380,10 @@ function zerarEditarUsuario(){
 };
 
 function Usuario(){
-	$("#CorpoHome").load("./Exibir/Usuarios.php")
-	$("#projeto_btn1").html('<a id="Projetos">Voltar a Projetos</a>'); //botão no header
-    $("#projeto_btn2").html(''); //botão no header
+	$("#CorpoHome").load("./Exibir/Usuarios.php", function(){
+			$("#projeto_btn1").html('<a id="Projetos">Voltar a Projetos</a>'); //botão no header
+  		$("#projeto_btn2").html(''); //botão no header
+	});
 };
 
 function NovoUsuario(){
@@ -310,7 +435,7 @@ function SalvarNovoUsuario(){
 
 function EditarUsuario(){
 	zerarEditarUsuario()
-	
+
 
 	var idUsuario = Array("infoUsuario", $("#infoId").html());
 
@@ -333,8 +458,8 @@ function EditarUsuario(){
 			$("#editar_estado").val(resultado['estado']);
 			$("#modalInfoUsuario").modal('hide');
 			$("#modalEditarUsuario").modal('show');
-			
-			
+
+
 		}
 	})
 
@@ -407,7 +532,7 @@ function NovoLog(){
 
 function salvarLog(){
 	var informacoes = Array('salvarLog', $("#idProjetoCurrent").html(), $("#formNovoLog").serializeArray());
-	
+
 	$.ajax({
 		url: '../Controle/Projetos.php',
 		type: 'POST',
@@ -416,7 +541,7 @@ function salvarLog(){
 		success: function(msg){
 			alert(msg);
 			$("#modalNovoLog").modal('hide');
-			$("#CorpoHome").load("./Exibir/LogProjeto.php", {"idProjeto": informacoes[1]} );
+			$("#corpoLogs").load("./Exibir/ExibirProjeto.php #corpoLogs", {"idProjeto": informacoes[1]} );
 		}
 	})
 }
@@ -433,5 +558,213 @@ function projetoLogoff(){
 		}
 
 	})
-	
+
 }
+
+function Modulo(){
+	$("#CorpoHome").load("./Exibir/Modulos.php", function(){
+			$("#projeto_btn1").html('<a id="Projetos">Voltar a Projetos</a>'); //botão no header
+	});
+
+}
+
+function ModalNovoModulo(){
+	$('#modalAddModulo').modal('show')
+}
+
+function SalvarNovoModulo(){
+	var informacoes = $("#formNovoModulo").serializeArray();
+	informacoes.unshift("novoModulo");
+
+	$.ajax({
+		url:'../Controle/Modulos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(msg){
+			if (msg === 1) {
+				alert("Já existe um Modulo com este Nome");
+			}else{
+				alert("Modulo Cadastrado");
+				$('#modalAddModulo').modal('hide')
+				Modulo();
+			}
+		}
+	})
+}
+
+function zerarModalModulo(){
+	$("#modalTituloModulo").html("");
+	$("modalTituloNome").html("");
+	$("#modalCampoNome").html("");
+	$("#modalTituloDescricao").html("");
+	$("#modalCampoDescricao").html("");
+	$("#modalBtn1").html("");
+	$("#modalBtn2").html("");
+	$("#modalBtn3").html("");
+
+}
+
+var modulo_selecionado;
+
+function info_modulo(){
+	zerarModalModulo();
+	modulo_selecionado = $(this).closest('#modul');
+	var info_modulo = $(this).closest('summary').attr('data-descricao');
+	var nome_modulo = $(this).closest('summary').attr('data-nome');
+	$("#modalTituloModulo").html("Informações do Modulo");
+	$("#modalTituloNome").html("Nome Modulo: ");
+	$("#modalCampoNome").html(nome_modulo);
+	$("#modalTituloDescricao").html("Descrição Modulo: ");
+	$("#modalCampoDescricao").html("<span'>"+info_modulo+"</span>");
+	$("#modalBtn1").html('<button type="button" class="btn btn-secondary editar_modulo">Editar</button>');
+	$("#modalBtn2").html('<button type="button" class="btn btn-secondary excluir_modulo">Excluir</button>');
+	$("#modalBtn3").html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>');
+	$("#modalmodulo").modal('show');
+}
+	
+function editar_modulo(){
+	var info_modulo = modulo_selecionado.find('summary').attr('data-descricao');
+	var nome_modulo = modulo_selecionado.find('summary').attr('data-nome');
+	$("#modalBtn1").html('<button type="button" class="btn btn-secondary salvarEditModulo">Salvar</button>');
+	$("#modalCampoNome").html("");
+	$("#modalCampoNome").html("<input type='text' id='inputnome_modulo'  name='nome_modulo'/>");
+	$("#inputnome_modulo").val(nome_modulo);
+	$("#modalCampoDescricao").html("");
+	$("#modalCampoDescricao").html('<textarea name="descricao_modulo" style="width:99%" rows="5">'+info_modulo+'</textarea>');
+}
+
+function excluir_modulo(){
+	var conf = confirm("Você realmente deseja excluir este Modulo???");
+
+	if (conf == true) {
+		var informacoes = Array('excluirModulo', modulo_selecionado.find('summary').attr('data-id'));
+		$.ajax({
+			url:'../Controle/Modulos.php',
+			dataType: 'json',
+			type: 'POST',
+			data: JSON.stringify(informacoes),
+			success: function(msg){
+				alert(msg);
+				$("#modalmodulo").modal('hide');
+				modulo_selecionado.remove();
+				}
+			
+		})
+	}
+}
+
+function salvarEditModulo(){
+	var informacoes = $("#formModulo").serializeArray();
+	informacoes.unshift("salvarEditModulo", modulo_selecionado.find('summary').attr('data-id'));
+	$.ajax({
+		url:'../Controle/Modulos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(msg){
+			alert(msg);
+			$("#modalmodulo").modal('hide');
+			Modulo();
+			}
+		
+	})
+}
+
+function nova_tarefa(){
+	modulo_selecionado = $(this).closest('#modul');
+	zerarModalModulo();
+	$("#modalTituloModulo").html("Nova Tarefa");
+	$("#modalTituloNome").html("Nome Tarefa: ");
+	$("#modalCampoNome").html("<input type='text' id='inputnome_modulo'  name='nome_modulo'/>");
+	$("#modalTituloDescricao").html("Descrição Tarefa: ");
+	$("#modalCampoDescricao").html('<textarea name="descricao_modulo" style="width:99%" rows="5"></textarea>');
+	$("#modalBtn1").html('<button type="button" class="btn btn-secondary salvar_novaTarefa">Salvar</button>');
+	$("#modalBtn2").html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>');
+	$("#modalmodulo").modal('show');
+}
+
+function salvar_novaTarefa(){
+	var informacoes = $("#formModulo").serializeArray();
+	informacoes.unshift('salvarNovaTarefa', modulo_selecionado.find('summary').attr('data-id'));
+	$.ajax({
+		url:'../Controle/Modulos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(msg){
+			alert(msg);
+			$("#modalmodulo").modal('hide');
+			Modulo();
+			}
+		
+	})
+}
+
+var tarefa_selecionada;
+
+function info_tarefa(){ //funcao para alimentar o Modal (modalmodulo) e apresentar ao usuario
+	zerarModalModulo();
+	tarefa_selecionada = $(this).closest('p');
+	var info_tarefa = tarefa_selecionada.attr('data-descricao');
+	var nome_tarefa = tarefa_selecionada.attr('data-nome');
+	$("#modalTituloModulo").html("Informações de Tarefa");
+	$("#modalTituloNome").html("Nome Tarefa: ");
+	$("#modalCampoNome").html(nome_tarefa);
+	$("#modalTituloDescricao").html("Descrição Tarefa: ");
+	$("#modalCampoDescricao").html("<span'>"+info_tarefa+"</span>");
+	$("#modalBtn1").html('<button type="button" class="btn btn-secondary editar_tarefa">Editar</button>');
+	$("#modalBtn2").html('<button type="button" class="btn btn-secondary excluir_tarefa">Excluir</button>');
+	$("#modalBtn3").html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>');
+	$("#modalmodulo").modal('show');
+}
+
+function editar_tarefa(){
+	var info_tarefa = tarefa_selecionada.attr('data-descricao');
+	var nome_tarefa = tarefa_selecionada.attr('data-nome');
+	$("#modalBtn1").html('<button type="button" class="btn btn-secondary salvarEditTarefa">Salvar</button>');
+	$("#modalCampoNome").html("");
+	$("#modalCampoNome").html("<input id='inputnome_tarefa' type='text' name='nome_tarefa'>");
+	$("#inputnome_tarefa").val(nome_tarefa);
+	$("#modalCampoDescricao").html("");
+	$("#modalCampoDescricao").html('<textarea name="descricao_tarefa" style="width:99%" rows="5">'+info_tarefa+'</textarea>');
+}
+
+function salvarEditTarefa(){
+	var informacoes = $("#formModulo").serializeArray();
+	informacoes.unshift("salvarEditTarefa", tarefa_selecionada.attr('data-id'));
+	$.ajax({
+		url:'../Controle/Modulos.php',
+		dataType: 'json',
+		type: 'POST',
+		data: JSON.stringify(informacoes),
+		success: function(msg){
+			alert(msg);
+			$("#modalmodulo").modal('hide');
+			Modulo();
+			}
+		
+	})
+}
+
+function excluir_tarefa(){
+	var conf = confirm("Você realmente deseja excluir esta Tarefa???");
+
+	if (conf == true) {
+
+		var informacoes = Array('excluirTarefa', tarefa_selecionada.attr('data-id'));
+		$.ajax({
+			url:'../Controle/Modulos.php',
+			dataType: 'json',
+			type: 'POST',
+			data: JSON.stringify(informacoes),
+			success: function(msg){
+				alert(msg);
+				$("#modalmodulo").modal('hide');
+				tarefa_selecionada.remove();
+				}
+		})
+	}
+
+}
+
